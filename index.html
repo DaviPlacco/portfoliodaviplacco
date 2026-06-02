@@ -598,6 +598,67 @@
                 opacity: 1;
             }
         }
+
+        /* Premium Mobile Optimizations */
+        @media (max-width: 1023px) {
+            /* Always display the visit project button on mobile */
+            .visit-project-btn {
+                opacity: 1 !important;
+                transform: scale(1) translateY(0) !important;
+                background: rgba(0, 82, 255, 0.2);
+                border-color: rgba(0, 82, 255, 0.4);
+                bottom: 1.5rem;
+                right: 1.5rem;
+            }
+
+            /* Make project cards slightly smaller height for better mobile fit */
+            .group.glass-card {
+                height: 420px !important;
+            }
+            .group.glass-card h3 {
+                font-size: 2.25rem !important; /* text-4xl */
+                line-height: 1.1;
+            }
+            
+            /* Staggered mobile nav link initial state */
+            .mobile-nav-link {
+                opacity: 0;
+                transform: translateY(25px);
+                transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+            
+            /* Responsive sections padding for mobile */
+            .py-32 {
+                padding-top: 5rem !important;
+                padding-bottom: 5rem !important;
+            }
+
+            /* Hide orbital system on mobile and show mobile skills grid */
+            .orbital-container {
+                display: none !important;
+            }
+
+            /* Hide iframe container and live indicators on mobile */
+            .live-preview-container, .live-indicator {
+                display: none !important;
+            }
+
+            /* Adjust project text padding and positioning on mobile */
+            .group.glass-card .absolute.bottom-0 {
+                padding: 2rem !important;
+            }
+
+            /* Glowing radial gradient for mobile menu */
+            #mobile-menu {
+                background: radial-gradient(circle at center, #0a0a1a 0%, #000000 100%) !important;
+            }
+        }
+
+        @media (max-width: 360px) {
+            #hero h1 {
+                font-size: 2.75rem !important;
+            }
+        }
     </style>
 </head>
 
@@ -677,7 +738,7 @@
                 <span class="text-primary tracking-[0.4em] font-bold text-xs uppercase mb-6 block">Senior Full-Stack Web
                     Developer</span>
                 <h1
-                    class="text-7xl md:text-[10rem] font-black tracking-tighter text-white mb-10 flex flex-col items-center leading-[0.85]">
+                    class="text-5xl sm:text-7xl md:text-[10rem] font-black tracking-tighter text-white mb-10 flex flex-col items-center leading-[0.85]">
                     <span class="mb-4 md:mb-8">Digital</span>
                     <span class="text-rotating">Architect.</span>
                 </h1>
@@ -1273,6 +1334,144 @@
                         </div>
 
                     </div>
+
+                    <!-- MOBILE-FIRST BENTO-STYLE TECH GRID (Visible only on mobile/tablet) -->
+                    <div class="mobile-skills-grid lg:hidden w-full grid grid-cols-2 sm:grid-cols-3 gap-4 mt-6">
+                        <!-- Skill Item: React -->
+                        <div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col gap-3 group/skill hover:border-primary/50 transition-all duration-300">
+                            <div class="flex items-center justify-between">
+                                <span class="material-symbols-outlined text-primary text-2xl">code</span>
+                                <span class="text-[10px] font-black text-gray-400 tracking-wider">95%</span>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-sm tracking-wide">React</h4>
+                                <p class="text-[9px] text-gray-500 uppercase tracking-widest mt-0.5">Front-end Env</p>
+                            </div>
+                            <div class="w-full h-[2px] bg-white/10 rounded-full overflow-hidden">
+                                <div class="h-full bg-primary rounded-full transition-all duration-1000 w-[95%]"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill Item: TypeScript -->
+                        <div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col gap-3 group/skill hover:border-primary/50 transition-all duration-300">
+                            <div class="flex items-center justify-between">
+                                <span class="material-symbols-outlined text-primary text-2xl">data_object</span>
+                                <span class="text-[10px] font-black text-gray-400 tracking-wider">90%</span>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-sm tracking-wide">TypeScript</h4>
+                                <p class="text-[9px] text-gray-500 uppercase tracking-widest mt-0.5">Strong Type</p>
+                            </div>
+                            <div class="w-full h-[2px] bg-white/10 rounded-full overflow-hidden">
+                                <div class="h-full bg-primary rounded-full transition-all duration-1000 w-[90%]"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill Item: Figma -->
+                        <div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col gap-3 group/skill hover:border-primary/50 transition-all duration-300">
+                            <div class="flex items-center justify-between">
+                                <span class="material-symbols-outlined text-primary text-2xl">palette</span>
+                                <span class="text-[10px] font-black text-gray-400 tracking-wider">95%</span>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-sm tracking-wide">Figma</h4>
+                                <p class="text-[9px] text-gray-500 uppercase tracking-widest mt-0.5">UI/UX Config</p>
+                            </div>
+                            <div class="w-full h-[2px] bg-white/10 rounded-full overflow-hidden">
+                                <div class="h-full bg-primary rounded-full transition-all duration-1000 w-[95%]"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill Item: Next.js -->
+                        <div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col gap-3 group/skill hover:border-primary/50 transition-all duration-300">
+                            <div class="flex items-center justify-between">
+                                <span class="material-symbols-outlined text-primary text-2xl">javascript</span>
+                                <span class="text-[10px] font-black text-gray-400 tracking-wider">85%</span>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-sm tracking-wide">Next.js</h4>
+                                <p class="text-[9px] text-gray-500 uppercase tracking-widest mt-0.5">App Framework</p>
+                            </div>
+                            <div class="w-full h-[2px] bg-white/10 rounded-full overflow-hidden">
+                                <div class="h-full bg-primary rounded-full transition-all duration-1000 w-[85%]"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill Item: Tailwind -->
+                        <div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col gap-3 group/skill hover:border-primary/50 transition-all duration-300">
+                            <div class="flex items-center justify-between">
+                                <span class="material-symbols-outlined text-primary text-2xl">css</span>
+                                <span class="text-[10px] font-black text-gray-400 tracking-wider">95%</span>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-sm tracking-wide">Tailwind CSS</h4>
+                                <p class="text-[9px] text-gray-500 uppercase tracking-widest mt-0.5">Styling Engine</p>
+                            </div>
+                            <div class="w-full h-[2px] bg-white/10 rounded-full overflow-hidden">
+                                <div class="h-full bg-primary rounded-full transition-all duration-1000 w-[95%]"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill Item: WordPress -->
+                        <div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col gap-3 group/skill hover:border-primary/50 transition-all duration-300">
+                            <div class="flex items-center justify-between">
+                                <span class="material-symbols-outlined text-primary text-2xl">layers</span>
+                                <span class="text-[10px] font-black text-gray-400 tracking-wider">90%</span>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-sm tracking-wide">WordPress</h4>
+                                <p class="text-[9px] text-gray-500 uppercase tracking-widest mt-0.5">CMS Control</p>
+                            </div>
+                            <div class="w-full h-[2px] bg-white/10 rounded-full overflow-hidden">
+                                <div class="h-full bg-primary rounded-full transition-all duration-1000 w-[90%]"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill Item: Salesforce -->
+                        <div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col gap-3 group/skill hover:border-primary/50 transition-all duration-300">
+                            <div class="flex items-center justify-between">
+                                <span class="material-symbols-outlined text-primary text-2xl">cloud</span>
+                                <span class="text-[10px] font-black text-gray-400 tracking-wider">80%</span>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-sm tracking-wide">Salesforce</h4>
+                                <p class="text-[9px] text-gray-500 uppercase tracking-widest mt-0.5">CRM Solutions</p>
+                            </div>
+                            <div class="w-full h-[2px] bg-white/10 rounded-full overflow-hidden">
+                                <div class="h-full bg-primary rounded-full transition-all duration-1000 w-[80%]"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill Item: SEO -->
+                        <div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col gap-3 group/skill hover:border-primary/50 transition-all duration-300">
+                            <div class="flex items-center justify-between">
+                                <span class="material-symbols-outlined text-primary text-2xl">travel_explore</span>
+                                <span class="text-[10px] font-black text-gray-400 tracking-wider">85%</span>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-sm tracking-wide">SEO</h4>
+                                <p class="text-[9px] text-gray-500 uppercase tracking-widest mt-0.5">Rank Strategy</p>
+                            </div>
+                            <div class="w-full h-[2px] bg-white/10 rounded-full overflow-hidden">
+                                <div class="h-full bg-primary rounded-full transition-all duration-1000 w-[85%]"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill Item: Git -->
+                        <div class="glass-card p-5 rounded-2xl border border-white/5 flex flex-col gap-3 group/skill hover:border-primary/50 transition-all duration-300 col-span-2 sm:col-span-1">
+                            <div class="flex items-center justify-between">
+                                <span class="material-symbols-outlined text-primary text-2xl">terminal</span>
+                                <span class="text-[10px] font-black text-gray-400 tracking-wider">95%</span>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-sm tracking-wide">Git Control</h4>
+                                <p class="text-[9px] text-gray-500 uppercase tracking-widest mt-0.5">Versioning</p>
+                            </div>
+                            <div class="w-full h-[2px] bg-white/10 rounded-full overflow-hidden">
+                                <div class="h-full bg-primary rounded-full transition-all duration-1000 w-[95%]"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1486,16 +1685,30 @@
                 mobileNavWrapper.classList.remove('translate-y-8');
                 mobileNavWrapper.classList.add('translate-y-0');
 
+                // Staggered fade in for links
+                mobileNavLinks.forEach((link, idx) => {
+                    link.style.transitionDelay = `${idx * 60}ms`;
+                    link.style.opacity = '1';
+                    link.style.transform = 'translateY(0)';
+                });
+
                 // Animate Hamburger to X
                 spans[0].classList.replace('mb-1.5', 'mb-0');
-                spans[0].style.transform = 'translateY(1px) rotate(45deg)';
-                spans[1].style.transform = 'translateY(-1px) rotate(-45deg)';
+                spans[0].style.transform = 'translateY(1.5px) rotate(45deg)';
+                spans[1].style.transform = 'translateY(-1.5px) rotate(-45deg)';
             } else {
                 // Close Menu
                 mobileMenu.classList.add('opacity-0', 'pointer-events-none');
                 mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
                 mobileNavWrapper.classList.add('translate-y-8');
                 mobileNavWrapper.classList.remove('translate-y-0');
+
+                // Reset staggered links
+                mobileNavLinks.forEach(link => {
+                    link.style.transitionDelay = '0ms';
+                    link.style.opacity = '0';
+                    link.style.transform = 'translateY(25px)';
+                });
 
                 // Revert X to Hamburger
                 spans[0].classList.replace('mb-0', 'mb-1.5');
