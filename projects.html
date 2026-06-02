@@ -147,28 +147,37 @@
                 opacity: 1 !important;
             }
         }
+
+        /* Hide scrollbars for filter navigation on mobile */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 </head>
 
 <body class="selection:bg-primary selection:text-white">
     <!-- Navigation -->
-    <header class="fixed top-0 w-full z-50 flex justify-between items-center px-8 md:px-16 py-6 bg-black/50 backdrop-blur-xl border-b border-white/5">
-        <a href="index.html" class="flex items-center gap-2 group">
+    <header class="fixed top-0 w-full z-50 flex flex-col sm:flex-row justify-between items-center px-8 md:px-16 py-4 sm:py-6 bg-black/50 backdrop-blur-xl border-b border-white/5 gap-3 sm:gap-0">
+        <a href="index.html" class="flex items-center gap-2 group whitespace-nowrap">
             <span class="material-symbols-outlined text-primary group-hover:-translate-x-1 transition-transform">arrow_back</span>
             <span class="text-xs font-black uppercase tracking-widest text-white">Back to Home</span>
         </a>
-        <div class="flex gap-8">
-            <button onclick="filterProjects('all')" class="filter-btn active text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 hover:text-white">All Works</button>
-            <button onclick="filterProjects('dev')" class="filter-btn text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 hover:text-white">Development</button>
-            <button onclick="filterProjects('design')" class="filter-btn text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 hover:text-white">UI/UX Design</button>
+        <div class="flex gap-4 sm:gap-8 max-w-full overflow-x-auto no-scrollbar py-1">
+            <button onclick="filterProjects('all')" class="filter-btn active text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-gray-500 hover:text-white whitespace-nowrap">All Works</button>
+            <button onclick="filterProjects('dev')" class="filter-btn text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-gray-500 hover:text-white whitespace-nowrap">Development</button>
+            <button onclick="filterProjects('design')" class="filter-btn text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-gray-500 hover:text-white whitespace-nowrap">UI/UX Design</button>
         </div>
     </header>
 
-    <main class="pt-32 pb-24 px-8 md:px-16 max-w-[1400px] mx-auto">
+    <main class="pt-40 sm:pt-32 pb-24 px-8 md:px-16 max-w-[1400px] mx-auto">
         <!-- Hero Section -->
         <section class="mb-24 animate-reveal">
             <span class="text-primary tracking-[0.4em] font-bold text-xs uppercase mb-6 block">Project Showcase</span>
-            <h1 class="text-6xl md:text-8xl font-black tracking-tighter text-white leading-tight">
+            <h1 class="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter text-white leading-tight">
                 Crafting Digital <br/>
                 <span class="text-gray-600">Excellence.</span>
             </h1>
