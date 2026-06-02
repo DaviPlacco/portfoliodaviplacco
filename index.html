@@ -1,0 +1,1637 @@
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Davi Placco | Digital Architect</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0052ff",
+                        "background": "#000000",
+                        "surface": "#0a0a0a",
+                        "on-surface-variant": "#9ca3af",
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "sans-serif"],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reveal {
+            animation: fadeUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            opacity: 0;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid;
+            border-image-source: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.1) 100%);
+            border-image-slice: 1;
+        }
+
+        .glass-button {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            border: 1px solid;
+            border-image-source: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.1) 100%);
+            border-image-slice: 1;
+            transition: all 0.3s ease;
+        }
+
+        .glass-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 82, 255, 0.3);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 15px rgba(0, 82, 255, 0.4);
+        }
+
+        .bg-glow-radial {
+            background: radial-gradient(circle at 50% 50%, rgba(0, 82, 255, 0.1) 0%, transparent 70%);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #000000;
+            color: #e5e7eb;
+            overflow-x: hidden;
+        }
+
+        /* Smooth reveal on scroll helper - Premium Easing */
+        .observe-me {
+            opacity: 0;
+            transform: translateY(50px);
+            /* Começa de mais baixo */
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            /* Animação Awwwards style */
+            will-change: opacity, transform;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .marquee-content {
+            display: flex;
+            width: max-content;
+            animation: marquee 30s linear infinite;
+            will-change: transform;
+        }
+
+        .mq-char {
+            display: inline-block;
+            transition: filter 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                color 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                text-shadow 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .mq-char:hover {
+            filter: blur(1.5px);
+            color: #ffffff;
+            text-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
+            transform: scale(1.1);
+            z-index: 10;
+            position: relative;
+        }
+
+        .is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Experience Card Base */
+        .experience-card {
+            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .experience-card:hover {
+            transform: translateY(-4px);
+        }
+
+        /* Mouse Tracking Spotlight for Toolkit & Experience Cards */
+        .spotlight-card,
+        .experience-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .spotlight-card>*,
+        .experience-card>* {
+            position: relative;
+            z-index: 10;
+        }
+
+        .spotlight-card::before,
+        .experience-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(550px circle at var(--mouse-x) var(--mouse-y), rgba(0, 82, 255, 0.12), transparent 40%);
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .spotlight-card:hover::before,
+        .experience-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Premium Social Link Color & Center-Out Border */
+        .social-link {
+            position: relative;
+            display: inline-block;
+        }
+
+        .social-link .link-text {
+            display: inline-block;
+            transition: color 0.4s;
+        }
+
+        .social-link:hover .link-text {
+            color: #0052ff;
+        }
+
+        .social-link::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -6px;
+            width: 100%;
+            height: 2px;
+            background: #0052ff;
+            transform: translateX(-50%) scaleX(0);
+            transform-origin: center;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .social-link:hover::after {
+            transform: translateX(-50%) scaleX(1);
+        }
+
+        .spotlight-card>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Premium Text Rotation (Letter by Letter) */
+        .text-rotating {
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .letter {
+            display: inline-block;
+            padding-bottom: 0.15em;
+            /* Prevent descender cutoffs like 'g' */
+            /* linha-height herda o 0.85 original para manter justíssimo */
+            opacity: 0;
+            transform: translateY(30px) rotateX(-45deg);
+            filter: blur(10px);
+            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+                transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+                filter 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            transform-origin: bottom center;
+            will-change: transform, opacity, filter;
+
+            /* The continuous gradient magic per-letter */
+            background-image: linear-gradient(to right, #0052ff, #93c5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            text-shadow: none;
+            /* remove glow if we just want clean linear gradient */
+        }
+
+        .letter.in {
+            opacity: 1;
+            transform: translateY(0) rotateX(0deg);
+            filter: blur(0px);
+        }
+
+        .letter.out {
+            opacity: 0;
+            transform: translateY(-30px) rotateX(45deg);
+            filter: blur(10px);
+            transition: opacity 0.5s cubic-bezier(0.55, 0, 1, 0.45),
+                transform 0.5s cubic-bezier(0.55, 0, 1, 0.45),
+                filter 0.5s cubic-bezier(0.55, 0, 1, 0.45);
+        }
+
+        /* 
+           ===========================================
+           SISTEMA ORBITAL RADIAL DE SKILLS (HTML/CSS)
+           ===========================================
+        */
+        .orbital-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* O Sol: Núcleo */
+        .orbital-center {
+            position: absolute;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(0, 82, 255, 0.1);
+            border: 1px solid rgba(0, 82, 255, 0.5);
+            box-shadow: 0 0 30px rgba(0, 82, 255, 0.4);
+        }
+
+        /* Anéis Físicos das Órbitas */
+        .orbit-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            pointer-events: none;
+        }
+
+        /* Raios exatos: 45%, 70%, 95% do tamanho máximo do container */
+        .orbit-1 {
+            width: 45%;
+            height: 45%;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .orbit-2 {
+            width: 70%;
+            height: 70%;
+        }
+
+        .orbit-3 {
+            width: 95%;
+            height: 95%;
+        }
+
+        /* Embrulho que faz a órbita inteira girar em volta do centro */
+        .revolve {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            transform: translate(-50%, -50%);
+            animation: revolve var(--orbit-duration) linear infinite;
+            pointer-events: none;
+            /* ESSENCIAL: Impede que a órbita externa capture e bloqueie cliques/hovers das órbitas internas */
+        }
+
+        /* Contra-rotação aplicada aos ícones para nunca ficarem de cabeça para baixo */
+        .revolve-anti {
+            /* Adicionado position absolute para agir como um sub-wrapper e não quebrar o layout */
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: revolve-anti var(--orbit-duration) linear infinite;
+        }
+
+        @keyframes revolve {
+            from {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        @keyframes revolve-anti {
+            from {
+                transform: rotate(360deg);
+            }
+
+            to {
+                transform: rotate(0deg);
+            }
+        }
+
+        /* O braço invisível que calcula a distância do sol */
+        .orbit-node-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: var(--orbit-radius-pct);
+            height: 0;
+            transform-origin: 0 0;
+            transform: rotate(var(--orbit-angle));
+            pointer-events: none;
+            /* CRÍTICO: Previne que um braço enorme e invisível bloqueie hover das outras órbitas */
+        }
+
+        /* Sub-Wrapper para desfazer o angulo base estático do braço */
+        .orbit-node-wrapper {
+            position: absolute;
+            right: 0;
+            top: 0;
+            transform: rotate(calc(-1 * var(--orbit-angle)));
+        }
+
+        /* O Planeta Físico (A Skill) */
+        .orbit-node {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            /* Centraliza perfeitamente no fim do braço */
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            pointer-events: auto;
+            /* Autoriza hover apenas na parte sensoriável do núcleo da skill */
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        /* Interações Hover e Tooltip Shadcn-like */
+        .orbit-node:hover {
+            background: rgba(0, 82, 255, 0.15);
+            border-color: var(--primary, #0052ff);
+            box-shadow: 0 0 25px rgba(0, 82, 255, 0.5);
+            transform: translate(-50%, -50%) scale(1.15);
+            /* Amplifica respeitando o Translate base */
+            z-index: 30;
+        }
+
+        /* Card Rica estilo 21st.dev Component */
+        .orbit-node-card {
+            position: absolute;
+            top: 130%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            width: 155px;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 82, 255, 0.15);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 100;
+        }
+
+        .orbit-node:hover .orbit-node-card {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+            border-color: rgba(0, 82, 255, 0.4);
+        }
+
+        .orbit-card-title {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 2px;
+        }
+
+        .orbit-card-desc {
+            font-size: 0.55rem;
+            font-weight: 600;
+            color: var(--primary, #0052ff);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+
+        .orbit-card-energy {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .orbit-card-bar-bg {
+            flex-grow: 1;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .orbit-card-bar-fill {
+            height: 100%;
+            background: var(--primary, #0052ff);
+            box-shadow: 0 0 6px var(--primary, #0052ff);
+        }
+
+        .orbit-card-lvl {
+            font-size: 0.5rem;
+            font-weight: 800;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        /* Live Preview Styles - Optimized for Desktop View */
+        .live-preview-container {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+            z-index: 20;
+            background: #000;
+        }
+
+        .live-preview-frame {
+            width: 1600px;
+            /* Força largura desktop para evitar cortes */
+            height: 900px;
+            border: none;
+            transform: scale(0.8);
+            /* Reduz para caber no container sem perder proporção */
+            transform-origin: top left;
+        }
+
+        @media (max-width: 1024px) {
+            .live-preview-frame {
+                transform: scale(0.5);
+            }
+        }
+
+        .group:hover .live-preview-container {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .live-indicator {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: rgba(0, 82, 255, 0.2);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 82, 255, 0.4);
+            border-radius: 99px;
+            z-index: 30;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .group:hover .live-indicator {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Premium Project Button */
+        .visit-project-btn {
+            position: absolute;
+            bottom: 2.5rem;
+            right: 2.5rem;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            z-index: 50;
+            opacity: 0;
+            transform: scale(0.8) translateY(10px);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+
+        .group:hover .visit-project-btn {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        .visit-project-btn:hover {
+            background: #0052ff;
+            border-color: #0052ff;
+            box-shadow: 0 0 25px rgba(0, 82, 255, 0.6);
+            color: white;
+        }
+
+        .pulse-dot {
+            width: 6px;
+            height: 6px;
+            background: #0052ff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #0052ff;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.5);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body class="selection:bg-primary selection:text-white" data-mode="connect">
+    <!-- Fixed Navigation Menu -->
+    <header
+        class="fixed top-0 md:top-6 w-full z-50 flex justify-between items-center px-8 md:px-16 py-4 md:py-0 bg-black/80 md:bg-transparent backdrop-blur-xl md:backdrop-blur-none border-b border-white/10 md:border-transparent pointer-events-auto md:pointer-events-none transition-all">
+        <!-- Logo -->
+        <a href="#hero"
+            class="brand-logo flex items-center text-lg md:text-xl pointer-events-auto uppercase z-50 px-5 py-2 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl">
+            <!-- Dynamic Kinetic Logo Injected via Premium JS -->
+        </a>
+
+        <!-- Capsule Nav -->
+        <nav
+            class="hidden md:flex items-center gap-1 p-1.5 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full pointer-events-auto shadow-2xl">
+            <!-- Active Item -->
+            <a class="px-5 py-2.5 rounded-full bg-white/10 text-xs uppercase tracking-widest font-bold text-white transition-colors"
+                href="#hero">Hero</a>
+            <!-- Default Items -->
+            <a class="px-5 py-2.5 rounded-full text-xs uppercase tracking-widest font-bold text-gray-400 hover:text-white hover:bg-white/5 transition-all"
+                href="#about">About</a>
+            <a class="px-5 py-2.5 rounded-full text-xs uppercase tracking-widest font-bold text-gray-400 hover:text-white hover:bg-white/5 transition-all"
+                href="#journey">Journey</a>
+            <a class="px-5 py-2.5 rounded-full text-xs uppercase tracking-widest font-bold text-gray-400 hover:text-white hover:bg-white/5 transition-all"
+                href="#projects">Projects</a>
+            <a class="px-5 py-2.5 rounded-full text-xs uppercase tracking-widest font-bold text-gray-400 hover:text-white hover:bg-white/5 transition-all"
+                href="#skills">Expertise</a>
+            <a class="px-5 py-2.5 rounded-full text-xs uppercase tracking-widest font-bold text-gray-400 hover:text-white hover:bg-white/5 transition-all"
+                href="#contact">Contact</a>
+        </nav>
+
+        <!-- CTA Action & Mobile Toggle -->
+        <div class="pointer-events-auto flex items-center gap-3">
+            <a class="glass-button px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest text-white inline-block"
+                style="border-image: none; border-color: rgba(255,255,255,0.15)" href="#contact">
+                Hire Me
+            </a>
+
+            <!-- Hamburger Toggle -->
+            <button id="mobile-menu-btn"
+                class="md:hidden flex flex-col justify-center items-center w-10 h-10 rounded-full bg-white/5 border border-white/10 relative z-[60]">
+                <span
+                    class="block w-4 h-[2px] bg-white rounded transition-all duration-300 mb-1.5 origin-center"></span>
+                <span class="block w-4 h-[2px] bg-white rounded transition-all duration-300 origin-center"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu"
+        class="fixed inset-0 z-40 bg-black/95 backdrop-blur-3xl flex flex-col justify-center items-center opacity-0 pointer-events-none transition-opacity duration-500">
+        <nav class="flex flex-col gap-8 text-center translate-y-8 transition-transform duration-500"
+            id="mobile-nav-wrapper">
+            <a class="mobile-nav-link text-3xl font-black tracking-widest text-white uppercase" href="#hero">Hero</a>
+            <a class="mobile-nav-link text-3xl font-black tracking-widest text-gray-500 hover:text-white uppercase"
+                href="#about">About</a>
+            <a class="mobile-nav-link text-3xl font-black tracking-widest text-gray-500 hover:text-white uppercase"
+                href="#journey">Journey</a>
+            <a class="mobile-nav-link text-3xl font-black tracking-widest text-gray-500 hover:text-white uppercase"
+                href="#projects">Projects</a>
+            <a class="mobile-nav-link text-3xl font-black tracking-widest text-gray-500 hover:text-white uppercase"
+                href="#skills">Expertise</a>
+            <a class="mobile-nav-link text-3xl font-black tracking-widest text-gray-500 hover:text-white uppercase"
+                href="#contact">Contact</a>
+        </nav>
+    </div>
+    <main>
+        <!-- 1. Hero Section -->
+        <section class="relative min-h-screen flex items-center justify-center px-8 md:px-24 pt-20 overflow-hidden"
+            id="hero">
+            <div class="absolute inset-0 bg-glow-radial -z-10"></div>
+            <div
+                class="absolute -top-20 -right-20 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px] animate-pulse">
+            </div>
+            <div class="max-w-6xl w-full flex flex-col items-center text-center reveal">
+                <span class="text-primary tracking-[0.4em] font-bold text-xs uppercase mb-6 block">Senior Full-Stack Web
+                    Developer</span>
+                <h1
+                    class="text-7xl md:text-[10rem] font-black tracking-tighter text-white mb-10 flex flex-col items-center leading-[0.85]">
+                    <span class="mb-4 md:mb-8">Digital</span>
+                    <span class="text-rotating">Architect.</span>
+                </h1>
+                <p class="text-gray-500 text-lg md:text-xl max-w-xl mb-14 font-light leading-relaxed mx-auto"
+                    style="text-wrap: balance;">
+                    Crafting <span class="text-gray-200 font-medium tracking-wide">high-performance</span> digital
+                    ecosystems where solid logic meets <span
+                        class="text-white border-b border-primary/40 pb-1 transition-colors hover:border-primary">avant-garde</span>
+                    visual systems.
+                </p>
+                <div class="flex flex-wrap gap-6 items-center justify-center">
+                    <a class="glass-button px-10 py-5 font-bold uppercase tracking-widest text-sm text-white"
+                        href="#projects">
+                        Explore Works
+                    </a>
+                    <a class="px-10 py-5 text-gray-400 hover:text-white font-bold uppercase tracking-widest text-sm transition-all border-b border-transparent hover:border-primary"
+                        href="#contact">
+                        Get in touch
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- 2. About Me Section -->
+        <section class="py-32 px-8 md:px-24 bg-black relative" id="about">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-20 items-center observe-me">
+                <div class="w-full md:w-5/12 aspect-[4/5] relative">
+                    <div class="absolute -inset-4 border border-white/10 glass-card -z-10 translate-x-4 translate-y-4">
+                    </div>
+                    <img alt="Davi Placco Portrait"
+                        class="object-cover w-full h-full grayscale hover:grayscale-0 transition-all duration-1000 shadow-2xl"
+                        src="assets/profile-davi.png" />
+                </div>
+                <div class="w-full md:w-7/12">
+                    <span class="text-primary text-xs font-bold tracking-[0.3em] uppercase mb-6 block">01 /
+                        Profile</span>
+                    <h2 class="text-5xl md:text-7xl font-black tracking-tight mb-10 text-white">Davi Placco<br /><span
+                            class="text-gray-500">About me.</span></h2>
+                    <div class="space-y-8 text-gray-400 leading-relaxed text-xl font-light">
+                        <p>As a <b>Senior Full-Stack Developer & Creative Lead</b>, I architect high-performance digital
+                            ecosystems that bridge the gap between complex engineering and premium aesthetics. While I
+                            master the strategic implementation of platforms like <b>WordPress and Salesforce</b>, my
+                            core expertise lies in <b>custom-coded solutions</b>, crafting bespoke, pure-code
+                            architectures that ensure absolute scalability and peak performance. By merging avant-garde
+                            <b>Design</b> with advanced <b>Engineering</b> and <b>SEO Strategy</b>, I transform
+                            ambitious visions into technically superior experiences that drive measurable growth.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Premium Infinite Marquee / Horizontal Divider -->
+        <div id="premium-marquee"
+            class="w-full relative flex overflow-hidden bg-[#050505] border-y border-white/5 py-4 md:py-6 -mt-16 md:-mt-0 select-none observe-me"
+            style="-webkit-mask-image: linear-gradient(to right, transparent, black 30%, black 70%, transparent); mask-image: linear-gradient(to right, transparent, black 30%, black 70%, transparent);">
+            <div
+                class="marquee-content flex items-center w-max cursor-default text-gray-500 font-bold uppercase tracking-[0.4em] text-[10px] md:text-sm whitespace-nowrap opacity-60 hover:opacity-100 transition-opacity duration-1000">
+                <!-- Javascript injects spans here dynamically for the letter hover effect -->
+            </div>
+        </div>
+
+        <!-- 3. Journey (Experience) Section -->
+        <section class="py-32 px-8 md:px-24 bg-black relative" id="journey">
+            <div class="max-w-7xl mx-auto observe-me">
+                <div class="mb-20">
+                    <span class="text-primary text-xs font-bold tracking-[0.3em] uppercase mb-6 block">02 /
+                        Journey</span>
+                    <h2 class="text-5xl md:text-7xl font-black tracking-tight text-white">Professional <span
+                            class="text-gray-600">Path.</span></h2>
+                </div>
+                <div class="space-y-6">
+                    <!-- Exp 1 -->
+                    <div
+                        class="glass-card experience-card p-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 group">
+                        <div class="md:w-5/12">
+                            <span class="text-primary font-bold text-xs tracking-widest block mb-2 uppercase">03/2026 —
+                                Present</span>
+                            <h3 class="text-3xl font-bold text-white group-hover:text-primary transition-colors">Senior
+                                Full-Stack Web Developer & Creative Lead</h3>
+                            <p class="text-gray-500 font-medium">Estate Knowledge | Wyoming, USA</p>
+                        </div>
+                        <div class="md:w-7/12">
+                            <p class="text-gray-400 italic font-light">Advanced Web Development, Wordpress management,
+                                Server administration, and Database optimization. Managing high-performance digital
+                                infrastructure.</p>
+                        </div>
+                    </div>
+                    <!-- Exp 2 -->
+                    <div
+                        class="glass-card experience-card p-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 group">
+                        <div class="md:w-5/12">
+                            <span class="text-primary font-bold text-xs tracking-widest block mb-2 uppercase">08/2025 —
+                                03/2026</span>
+                            <h3 class="text-3xl font-bold text-white group-hover:text-primary transition-colors">Web
+                                Designer</h3>
+                            <p class="text-gray-500 font-medium">Agência Get Digital | Leiria, PT</p>
+                        </div>
+                        <div class="md:w-7/12">
+                            <p class="text-gray-400 italic font-light">Design of high-converting Landing Pages, Creative
+                                Content development, Ebook development, Figma prototyping, and SEO Optimization.</p>
+                        </div>
+                    </div>
+                    <!-- Exp 3 -->
+                    <div
+                        class="glass-card experience-card p-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 group">
+                        <div class="md:w-5/12">
+                            <span class="text-primary font-bold text-xs tracking-widest block mb-2 uppercase">12/2024 —
+                                07/2025</span>
+                            <h3 class="text-3xl font-bold text-white group-hover:text-primary transition-colors">Web
+                                Designer</h3>
+                            <p class="text-gray-500 font-medium">SONAE - MO Fashion | Maia/Porto, PT</p>
+                        </div>
+                        <div class="md:w-7/12">
+                            <p class="text-gray-400 italic font-light">Web Development (HTML, CSS, JS, Bootstrap),
+                                Salesforce customization, Paid Media design, Newsletter development, UI Design, and
+                                Video production. SEO monitoring &amp; Project Management via ClickUp.</p>
+                        </div>
+                    </div>
+                    <!-- Exp 4 -->
+                    <div
+                        class="glass-card experience-card p-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 group">
+                        <div class="md:w-5/12">
+                            <span class="text-primary font-bold text-xs tracking-widest block mb-2 uppercase">12/2023 —
+                                12/2024</span>
+                            <h3 class="text-3xl font-bold text-white group-hover:text-primary transition-colors">Web
+                                Designer &amp; Dev</h3>
+                            <p class="text-gray-500 font-medium">Freelance | Leiria, PT</p>
+                        </div>
+                        <div class="md:w-7/12">
+                            <p class="text-gray-400 italic font-light">Development of websites and landing pages, Figma
+                                prototyping, and SEO Optimization.</p>
+                        </div>
+                    </div>
+                    <!-- Exp 5 -->
+                    <div
+                        class="glass-card experience-card p-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 group">
+                        <div class="md:w-5/12">
+                            <span class="text-primary font-bold text-xs tracking-widest block mb-2 uppercase">02/2023 —
+                                12/2023</span>
+                            <h3 class="text-3xl font-bold text-white group-hover:text-primary transition-colors">Web
+                                Designer &amp; Dev</h3>
+                            <p class="text-gray-500 font-medium">Você Digital Propaganda | Jundiaí, BR</p>
+                        </div>
+                        <div class="md:w-7/12">
+                            <p class="text-gray-400 italic font-light">E-commerce development, API integration, Website
+                                development, Figma prototyping, and SEO Optimization.</p>
+                        </div>
+                    </div>
+                    <!-- Exp 6 -->
+                    <div
+                        class="glass-card experience-card p-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 group">
+                        <div class="md:w-5/12">
+                            <span class="text-primary font-bold text-xs tracking-widest block mb-2 uppercase">06/2022 —
+                                02/2023</span>
+                            <h3 class="text-3xl font-bold text-white group-hover:text-primary transition-colors">Web
+                                Designer &amp; Dev</h3>
+                            <p class="text-gray-500 font-medium">Eletrac Empilhadeiras | Jundiaí, BR</p>
+                        </div>
+                        <div class="md:w-7/12">
+                            <p class="text-gray-400 italic font-light">Website development and SEO Optimization focused
+                                on industrial equipment sector.</p>
+                        </div>
+                    </div>
+                    <!-- Exp 7 -->
+                    <div
+                        class="glass-card experience-card p-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 group">
+                        <div class="md:w-5/12">
+                            <span class="text-primary font-bold text-xs tracking-widest block mb-2 uppercase">11/2021 —
+                                05/2022</span>
+                            <h3 class="text-3xl font-bold text-white group-hover:text-primary transition-colors">
+                                Marketing Intern</h3>
+                            <p class="text-gray-500 font-medium">Eletrac Empilhadeiras | Jundiaí, BR</p>
+                        </div>
+                        <div class="md:w-7/12">
+                            <p class="text-gray-400 italic font-light">Website development, SEO, and Social Media
+                                content creation.</p>
+                        </div>
+                    </div>
+                    <!-- Exp 8 -->
+                    <div
+                        class="glass-card experience-card p-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 group">
+                        <div class="md:w-5/12">
+                            <span class="text-primary font-bold text-xs tracking-widest block mb-2 uppercase">11/2019 —
+                                03/2021</span>
+                            <h3 class="text-3xl font-bold text-white group-hover:text-primary transition-colors">
+                                Marketing Assistant</h3>
+                            <p class="text-gray-500 font-medium">Sanx Ferramentas | Jundiaí, BR</p>
+                        </div>
+                        <div class="md:w-7/12">
+                            <p class="text-gray-400 italic font-light">E-commerce maintenance, SEO Optimization, and
+                                Social Media arts creation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- 4. Projects Section -->
+        <section class="py-32 px-8 md:px-24 bg-black" id="projects">
+            <div class="max-w-7xl mx-auto observe-me">
+                <div class="mb-20 flex justify-between items-end">
+                    <div>
+                        <span class="text-primary text-xs font-bold tracking-[0.3em] uppercase mb-6 block">03 /
+                            Selection</span>
+                        <h2 class="text-5xl md:text-7xl font-black tracking-tight text-white">Recent <span
+                                class="text-primary">Works.</span></h2>
+                    </div>
+                    <a href="projects.html"
+                        class="text-gray-500 hover:text-white transition-colors flex items-center gap-3 uppercase text-xs font-bold tracking-widest group">
+                        View All <span
+                            class="material-symbols-outlined text-sm group-hover:translate-x-2 transition-transform">arrow_forward</span>
+                    </a>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <!-- Live Preview Project: Aurelius Fintech -->
+                    <div class="group relative overflow-hidden glass-card h-[600px] md:col-span-2">
+                        <!-- Live Indicator Badge -->
+                        <div class="live-indicator">
+                            <div class="pulse-dot"></div>
+                            <span class="text-[10px] uppercase font-bold tracking-[0.2em] text-white">Live
+                                Preview</span>
+                        </div>
+
+                        <!-- Main Preview Image: New Mockup -->
+                        <img alt="Aurelius Fintech Mockup"
+                            class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 group-hover:opacity-0 opacity-100"
+                            src="assets/aurelius-mockup.png" />
+
+                        <!-- Scaled Interactive Iframe Container -->
+                        <div class="live-preview-container">
+                            <iframe class="live-preview-frame"
+                                src="https://daviplacco.github.io/aurelius-fintech/analytics"></iframe>
+                        </div>
+
+                        <!-- Premium Visit Button -->
+                        <a href="https://daviplacco.github.io/aurelius-fintech/analytics" target="_blank"
+                            class="visit-project-btn" title="Open Live Site">
+                            <span class="material-symbols-outlined text-xl">open_in_new</span>
+                        </a>
+
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent pointer-events-none group-hover:opacity-0 transition-opacity duration-700">
+                        </div>
+
+                        <div
+                            class="absolute bottom-0 left-0 p-12 transition-all duration-700 group-hover:translate-y-10 group-hover:opacity-0 pointer-events-none">
+                            <div class="flex gap-4 mb-6">
+                                <span
+                                    class="glass-button px-4 py-1 text-[10px] uppercase font-bold tracking-widest text-white">Next.js</span>
+                                <span
+                                    class="glass-button px-4 py-1 text-[10px] uppercase font-bold tracking-widest text-white">Tailwind</span>
+                                <span
+                                    class="glass-button px-4 py-1 text-[10px] uppercase font-bold tracking-widest text-white">Finance</span>
+                            </div>
+                            <h3 class="text-5xl font-black text-white mb-4">Aurelius Fintech</h3>
+                            <p class="text-gray-400 max-w-xl text-lg font-light">High-performance financial ecosystem
+                                with real-time data analysis and scalable architecture.</p>
+                        </div>
+                    </div>
+                    <!-- Live Preview Project: Vanguarde -->
+                    <div class="group relative overflow-hidden glass-card h-[500px]">
+                        <!-- Live Indicator Badge -->
+                        <div class="live-indicator">
+                            <div class="pulse-dot"></div>
+                            <span class="text-[10px] uppercase font-bold tracking-[0.2em] text-white">Live
+                                Preview</span>
+                        </div>
+
+                        <!-- Main Preview Image -->
+                        <img alt="Vanguarde Calibre 01"
+                            class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 group-hover:opacity-0 opacity-100"
+                            src="https://daviplacco.github.io/vanguarde-calibre-01/watch-hero.png" />
+
+                        <!-- Scaled Interactive Iframe Container -->
+                        <div class="live-preview-container">
+                            <iframe class="live-preview-frame" src="https://daviplacco.github.io/vanguarde-calibre-01/"
+                                style="transform: scale(0.65); transform-origin: top left; width: 153%; height: 153%;"></iframe>
+                        </div>
+
+                        <!-- Premium Visit Button -->
+                        <a href="https://daviplacco.github.io/vanguarde-calibre-01/" target="_blank"
+                            class="visit-project-btn" title="Open Live Site">
+                            <span class="material-symbols-outlined text-xl">open_in_new</span>
+                        </a>
+
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent pointer-events-none group-hover:opacity-0 transition-opacity duration-700">
+                        </div>
+                        <div
+                            class="absolute bottom-0 left-0 p-10 transition-all duration-700 group-hover:translate-y-10 group-hover:opacity-0 pointer-events-none">
+                            <h3 class="text-3xl font-black text-white">Vanguarde Calibre 01</h3>
+                            <p class="text-gray-500 text-sm mt-2 font-bold tracking-widest uppercase">High Watchmaking
+                                Experience</p>
+                        </div>
+                    </div>
+                    <!-- Project 3 -->
+                    <div class="group relative overflow-hidden glass-card h-[500px]">
+                        <img alt="Project 3"
+                            class="absolute inset-0 w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 transition-all duration-700"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXm5eSvo7thfsq_MBGZWPYo5Rqkg1IW6p2C-2D8OcVE2Gd75bwYyAuN-Z7UhghOUPKBS-UziN0AmM9_OUNEp7NLw4adlZUoaxksfLtDZ0sQkhpzkiP4PUZD6jtW8951eUOwm73LsK2eTwvQgHoBuOvlDHLSGFfBgTJsfCJkX1QwrxlGhnUEiqE-BdR4SE_O15Wkr85i6h0MYlN5Ox8taVEST2Aqq81FsR2Hmd7yZD4qm5NNTnGs5mzXam1C55M_MK19GzcKAkFnqk" />
+
+                        <!-- Premium Visit Button -->
+                        <div class="visit-project-btn" title="Case Study coming soon">
+                            <span class="material-symbols-outlined text-xl">lock</span>
+                        </div>
+
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-10">
+                            <h3 class="text-3xl font-black text-white">Krypton Mobile</h3>
+                            <p class="text-gray-500 text-sm mt-2 font-bold tracking-widest uppercase">Web3 Interface</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- 5 & 6. Skills & Tech Stack Section -->
+        <section class="py-32 px-8 md:px-24 bg-black" id="skills">
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-32 observe-me">
+                <!-- Expertise -->
+                <div>
+                    <span class="text-primary text-xs font-bold tracking-[0.3em] uppercase mb-6 block">04 /
+                        Expertise</span>
+                    <h2 class="text-5xl md:text-7xl font-black tracking-tight text-white mb-16">Core <br /><span
+                            class="text-gray-600">Capabilities.</span></h2>
+                    <div class="space-y-12">
+                        <div>
+                            <div class="flex justify-between mb-4">
+                                <span class="font-bold text-sm tracking-widest uppercase text-white">Front-end
+                                    Systems</span>
+                                <span class="text-primary font-black">95%</span>
+                            </div>
+                            <div class="w-full h-[2px] bg-white/10 relative">
+                                <div class="absolute top-0 left-0 h-full bg-primary w-[95%] shadow-[0_0_10px_#0052ff]">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-4">
+                                <span class="font-bold text-sm tracking-widest uppercase text-white">Visual
+                                    Design</span>
+                                <span class="text-primary font-black">88%</span>
+                            </div>
+                            <div class="w-full h-[2px] bg-white/10 relative">
+                                <div class="absolute top-0 left-0 h-full bg-primary w-[88%] shadow-[0_0_10px_#0052ff]">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-4">
+                                <span class="font-bold text-sm tracking-widest uppercase text-white">CMS
+                                    Architecture</span>
+                                <span class="text-primary font-black">90%</span>
+                            </div>
+                            <div class="w-full h-[2px] bg-white/10 relative">
+                                <div class="absolute top-0 left-0 h-full bg-primary w-[90%] shadow-[0_0_10px_#0052ff]">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-4">
+                                <span class="font-bold text-sm tracking-widest uppercase text-white">SEO
+                                    Optimization</span>
+                                <span class="text-primary font-black">85%</span>
+                            </div>
+                            <div class="w-full h-[2px] bg-white/10 relative">
+                                <div class="absolute top-0 left-0 h-full bg-primary w-[85%] shadow-[0_0_10px_#0052ff]">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tech Stack Radial Orbital Timeline -->
+                <div class="relative w-full flex flex-col md:items-end md:pl-10">
+                    <div class="w-full text-left md:text-right">
+                        <span class="text-primary text-xs font-bold tracking-[0.3em] uppercase mb-6 block">05 / Tech
+                            Stack</span>
+                        <h2 class="text-5xl md:text-7xl font-black tracking-tight text-white mb-12">Modern <br /><span
+                                class="text-gray-600">Ecosystem.</span></h2>
+                    </div>
+
+                    <!-- THE RADIAL ORBITAL TIMELINE COMPONENT -->
+                    <div class="orbital-container">
+
+                        <!-- Sun (Center) -->
+                        <div class="orbital-center text-primary group">
+                            <span
+                                class="material-symbols-outlined text-4xl group-hover:scale-110 transition-transform">all_inclusive</span>
+                        </div>
+
+                        <!-- Orbit Rings Backgrounds -->
+                        <div class="orbit-ring orbit-1"></div>
+                        <div class="orbit-ring orbit-2"></div>
+                        <div class="orbit-ring orbit-3"></div>
+
+                        <!-- 
+                          ÓRBITA 1 (CORE SKILLS) 
+                          Radius: 22.5% (metade de 45%) | Velocidade: 20s 
+                        -->
+                        <div class="revolve" style="--orbit-duration: 20s;">
+                            <!-- Node 1 -->
+                            <div class="orbit-node-container" style="--orbit-radius-pct: 22.5%; --orbit-angle: 0deg;">
+                                <div class="orbit-node-wrapper">
+                                    <div class="revolve-anti">
+                                        <div class="orbit-node group">
+                                            <span
+                                                class="material-symbols-outlined text-gray-400 group-hover:text-white">code</span>
+                                            <div class="orbit-node-card text-left">
+                                                <div class="orbit-card-title">React</div>
+                                                <div class="orbit-card-desc">Front-end Env</div>
+                                                <div class="orbit-card-energy">
+                                                    <div class="orbit-card-bar-bg">
+                                                        <div class="orbit-card-bar-fill" style="width: 95%"></div>
+                                                    </div><span class="orbit-card-lvl">Lvl</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Node 2 -->
+                            <div class="orbit-node-container" style="--orbit-radius-pct: 22.5%; --orbit-angle: 120deg;">
+                                <div class="orbit-node-wrapper">
+                                    <div class="revolve-anti">
+                                        <div class="orbit-node group">
+                                            <span
+                                                class="material-symbols-outlined text-gray-400 group-hover:text-white">data_object</span>
+                                            <div class="orbit-node-card text-left">
+                                                <div class="orbit-card-title">TypeScript</div>
+                                                <div class="orbit-card-desc">Strong Type</div>
+                                                <div class="orbit-card-energy">
+                                                    <div class="orbit-card-bar-bg">
+                                                        <div class="orbit-card-bar-fill" style="width: 90%"></div>
+                                                    </div><span class="orbit-card-lvl">Lvl</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Node 3 -->
+                            <div class="orbit-node-container" style="--orbit-radius-pct: 22.5%; --orbit-angle: 240deg;">
+                                <div class="orbit-node-wrapper">
+                                    <div class="revolve-anti">
+                                        <div class="orbit-node group">
+                                            <span
+                                                class="material-symbols-outlined text-gray-400 group-hover:text-white">palette</span>
+                                            <div class="orbit-node-card text-left">
+                                                <div class="orbit-card-title">Figma</div>
+                                                <div class="orbit-card-desc">UI/UX Config</div>
+                                                <div class="orbit-card-energy">
+                                                    <div class="orbit-card-bar-bg">
+                                                        <div class="orbit-card-bar-fill" style="width: 95%"></div>
+                                                    </div><span class="orbit-card-lvl">Lvl</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 
+                          ÓRBITA 2 (ESTRUTURA) 
+                          Radius: 35% (metade de 70%) | Velocidade: 35s 
+                        -->
+                        <div class="revolve" style="--orbit-duration: 35s;">
+                            <!-- Node 4 -->
+                            <div class="orbit-node-container" style="--orbit-radius-pct: 35%; --orbit-angle: 45deg;">
+                                <div class="orbit-node-wrapper">
+                                    <div class="revolve-anti">
+                                        <div class="orbit-node group">
+                                            <span
+                                                class="material-symbols-outlined text-gray-400 group-hover:text-white">javascript</span>
+                                            <div class="orbit-node-card text-left">
+                                                <div class="orbit-card-title">Next.js</div>
+                                                <div class="orbit-card-desc">App Framework</div>
+                                                <div class="orbit-card-energy">
+                                                    <div class="orbit-card-bar-bg">
+                                                        <div class="orbit-card-bar-fill" style="width: 85%"></div>
+                                                    </div><span class="orbit-card-lvl">Lvl</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Node 5 -->
+                            <div class="orbit-node-container" style="--orbit-radius-pct: 35%; --orbit-angle: 165deg;">
+                                <div class="orbit-node-wrapper">
+                                    <div class="revolve-anti">
+                                        <div class="orbit-node group">
+                                            <span
+                                                class="material-symbols-outlined text-gray-400 group-hover:text-white">css</span>
+                                            <div class="orbit-node-card text-left">
+                                                <div class="orbit-card-title">Tailwind CSS</div>
+                                                <div class="orbit-card-desc">Styling Engine</div>
+                                                <div class="orbit-card-energy">
+                                                    <div class="orbit-card-bar-bg">
+                                                        <div class="orbit-card-bar-fill" style="width: 95%"></div>
+                                                    </div><span class="orbit-card-lvl">Lvl</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Node 6 -->
+                            <div class="orbit-node-container" style="--orbit-radius-pct: 35%; --orbit-angle: 285deg;">
+                                <div class="orbit-node-wrapper">
+                                    <div class="revolve-anti">
+                                        <div class="orbit-node group">
+                                            <span
+                                                class="material-symbols-outlined text-gray-400 group-hover:text-white">layers</span>
+                                            <div class="orbit-node-card text-left">
+                                                <div class="orbit-card-title">WordPress</div>
+                                                <div class="orbit-card-desc">CMS Control</div>
+                                                <div class="orbit-card-energy">
+                                                    <div class="orbit-card-bar-bg">
+                                                        <div class="orbit-card-bar-fill" style="width: 90%"></div>
+                                                    </div><span class="orbit-card-lvl">Lvl</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 
+                          ÓRBITA 3 (ESPECIALIDADES/SATÉLITES) 
+                          Radius: 47.5% (metade de 95%) | Velocidade: 50s 
+                        -->
+                        <div class="revolve" style="--orbit-duration: 50s;">
+                            <!-- Node 7 -->
+                            <div class="orbit-node-container" style="--orbit-radius-pct: 47.5%; --orbit-angle: 90deg;">
+                                <div class="orbit-node-wrapper">
+                                    <div class="revolve-anti">
+                                        <div class="orbit-node group">
+                                            <span
+                                                class="material-symbols-outlined text-gray-400 group-hover:text-white">cloud</span>
+                                            <div class="orbit-node-card text-left">
+                                                <div class="orbit-card-title">Salesforce</div>
+                                                <div class="orbit-card-desc">CRM Solutions</div>
+                                                <div class="orbit-card-energy">
+                                                    <div class="orbit-card-bar-bg">
+                                                        <div class="orbit-card-bar-fill" style="width: 80%"></div>
+                                                    </div><span class="orbit-card-lvl">Lvl</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Node 8 -->
+                            <div class="orbit-node-container" style="--orbit-radius-pct: 47.5%; --orbit-angle: 210deg;">
+                                <div class="orbit-node-wrapper">
+                                    <div class="revolve-anti">
+                                        <div class="orbit-node group">
+                                            <span
+                                                class="material-symbols-outlined text-gray-400 group-hover:text-white">travel_explore</span>
+                                            <div class="orbit-node-card text-left">
+                                                <div class="orbit-card-title">SEO</div>
+                                                <div class="orbit-card-desc">Rank Strategy</div>
+                                                <div class="orbit-card-energy">
+                                                    <div class="orbit-card-bar-bg">
+                                                        <div class="orbit-card-bar-fill" style="width: 85%"></div>
+                                                    </div><span class="orbit-card-lvl">Lvl</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Node 9 -->
+                            <div class="orbit-node-container" style="--orbit-radius-pct: 47.5%; --orbit-angle: 330deg;">
+                                <div class="orbit-node-wrapper">
+                                    <div class="revolve-anti">
+                                        <div class="orbit-node group">
+                                            <span
+                                                class="material-symbols-outlined text-gray-400 group-hover:text-white">terminal</span>
+                                            <div class="orbit-node-card text-left">
+                                                <div class="orbit-card-title">Git Control</div>
+                                                <div class="orbit-card-desc">Versioning</div>
+                                                <div class="orbit-card-energy">
+                                                    <div class="orbit-card-bar-bg">
+                                                        <div class="orbit-card-bar-fill" style="width: 95%"></div>
+                                                    </div><span class="orbit-card-lvl">Lvl</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- 7. Contact Section (CTA) -->
+        <section class="py-32 px-8 md:px-24 bg-black relative overflow-hidden" id="contact">
+            <div class="absolute inset-0 bg-glow-radial -z-10 opacity-50"></div>
+            <div class="max-w-4xl mx-auto text-center observe-me">
+                <span class="text-primary text-xs font-bold tracking-[0.4em] uppercase mb-8 block">Ready for the next
+                    evolution?</span>
+                <h2 class="text-6xl md:text-8xl font-black tracking-tighter text-white mb-12">Let's build the <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-300">future.</span>
+                </h2>
+                <div class="flex flex-col items-center gap-12">
+                    <a class="glass-button px-16 py-6 text-lg font-bold uppercase tracking-[0.2em] text-white flex items-center gap-4"
+                        href="#">
+                        <span class="material-symbols-outlined">download</span>
+                        Download CV
+                    </a>
+                    <div class="flex gap-12">
+                        <a class="social-link text-gray-400 font-bold tracking-widest uppercase text-xs"
+                            href="https://www.linkedin.com/in/davi-placco-9b943217a/" target="_blank">
+                            <span class="link-text">LinkedIn</span>
+                        </a>
+                        <a class="social-link text-gray-400 font-bold tracking-widest uppercase text-xs"
+                            href="https://github.com/DaviPlacco" target="_blank">
+                            <span class="link-text">GitHub</span>
+                        </a>
+                        <a class="social-link text-gray-400 font-bold tracking-widest uppercase text-xs"
+                            href="https://www.behance.net/davibplacco" target="_blank">
+                            <span class="link-text">Behance</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Footer -->
+        <footer class="py-12 px-8 md:px-24 border-t border-white/5 bg-black/40 backdrop-blur-xl">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+                <a href="#hero" class="brand-logo flex items-center text-lg uppercase cursor-pointer">
+                    <!-- Dynamic Kinetic Logo Injected via Premium JS -->
+                </a>
+                <p class="text-gray-500 text-xs font-bold tracking-[0.2em] uppercase">
+                    © <span id="current-year"></span> DAVI PLACCO. ALL RIGHTS RESERVED.
+                </p>
+                <div class="flex gap-6">
+                    <a class="text-gray-500 hover:text-white transition-colors text-xs font-bold uppercase tracking-widest"
+                        href="#hero">Back to top</a>
+                </div>
+            </div>
+        </footer>
+    </main>
+    <script>
+        // Spotlight interaction for toolkit and tech stack cards
+        const spotlightCards = document.querySelectorAll('.spotlight-card, .experience-card');
+        spotlightCards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Intersection Observer for reveal animations (Two-way visibility)
+        const observerOptions = {
+            threshold: 0.05, // Só atua quando pelo menos 5% está visível
+            rootMargin: '-5% 0px -5% 0px' // Margem de segurança para evitar cortes bruscos
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    if (entry.target.classList.contains('reveal')) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                } else {
+                    // Remove a classe para o efeito de saída, mas de forma estável
+                    entry.target.classList.remove('is-visible');
+                    if (entry.target.classList.contains('reveal')) {
+                        entry.target.style.opacity = '0';
+                        entry.target.style.transform = 'translateY(20px)';
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.observe-me, .reveal').forEach(el => observer.observe(el));
+        // Premium Letter-by-Letter Word Rotation (Hero Section)
+        const rotWords = ["Architect.", "Engineer.", "Designer.", "Developer.", "Strategist."];
+        const wordContainer = document.querySelector('.text-rotating');
+        let currentWordIndex = 0;
+
+        function animateWord() {
+            if (!wordContainer) return;
+            const word = rotWords[currentWordIndex];
+            wordContainer.innerHTML = '';
+
+            const totalChars = word.length;
+            // Build letters
+            const letters = word.split('').map((char, index) => {
+                const span = document.createElement('span');
+                span.textContent = char;
+                span.className = 'letter';
+                if (char === ' ') span.innerHTML = '&nbsp;';
+
+                // Fake a unified continuous linear gradient mathematically
+                const pct = totalChars > 1 ? (index / (totalChars - 1)) * 100 : 0;
+                span.style.backgroundSize = `${totalChars * 100}% 100%`;
+                span.style.backgroundPosition = `${pct}% center`;
+
+                wordContainer.appendChild(span);
+                return span;
+            });
+
+            // Play IN
+            letters.forEach((letter, i) => {
+                setTimeout(() => {
+                    letter.classList.add('in');
+                }, i * 70);
+            });
+
+            const timeToRead = 3000;
+            const timeToAnimateIn = letters.length * 70;
+
+            setTimeout(() => {
+                // Play OUT
+                letters.forEach((letter, i) => {
+                    setTimeout(() => {
+                        letter.classList.remove('in');
+                        letter.classList.add('out');
+                    }, i * 50);
+                });
+
+                const timeToAnimateOut = letters.length * 50 + 600;
+                setTimeout(() => {
+                    currentWordIndex = (currentWordIndex + 1) % rotWords.length;
+                    animateWord();
+                }, timeToAnimateOut);
+
+            }, timeToAnimateIn + timeToRead);
+        }
+        animateWord();
+
+        // Atualiza automaticamente o ano no footer
+        document.getElementById("current-year").textContent = new Date().getFullYear();
+
+        // Nav Menu Active State & ScrollSpy
+        const navLinks = document.querySelectorAll('header nav a');
+        const sections = Array.from(navLinks)
+            .map(link => {
+                const href = link.getAttribute('href');
+                return href.startsWith('#') ? document.querySelector(href) : null;
+            })
+            .filter(Boolean);
+
+        function setActiveLink(clickedLink) {
+            navLinks.forEach(link => {
+                link.classList.remove('bg-white/10', 'text-white');
+                link.classList.add('text-gray-400', 'hover:text-white', 'hover:bg-white/5');
+            });
+            clickedLink.classList.remove('text-gray-400', 'hover:text-white', 'hover:bg-white/5');
+            clickedLink.classList.add('bg-white/10', 'text-white');
+        }
+
+        // On Click
+        navLinks.forEach(link => {
+            link.addEventListener('click', function () {
+                setActiveLink(this);
+            });
+        });
+
+        // On Scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 250) {
+                    current = '#' + section.getAttribute('id');
+                }
+            });
+
+            if (current) {
+                navLinks.forEach(link => {
+                    if (link.getAttribute('href') === current) {
+                        if (!link.classList.contains('bg-white/10')) {
+                            setActiveLink(link);
+                        }
+                    }
+                });
+            }
+        });
+
+        // Mobile Menu Toggle Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileNavWrapper = document.getElementById('mobile-nav-wrapper');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+        let isMobileMenuOpen = false;
+
+        function toggleMobileMenu() {
+            isMobileMenuOpen = !isMobileMenuOpen;
+            const spans = mobileMenuBtn.querySelectorAll('span');
+
+            if (isMobileMenuOpen) {
+                // Open Menu
+                mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+                mobileMenu.classList.add('opacity-100', 'pointer-events-auto');
+                mobileNavWrapper.classList.remove('translate-y-8');
+                mobileNavWrapper.classList.add('translate-y-0');
+
+                // Animate Hamburger to X
+                spans[0].classList.replace('mb-1.5', 'mb-0');
+                spans[0].style.transform = 'translateY(1px) rotate(45deg)';
+                spans[1].style.transform = 'translateY(-1px) rotate(-45deg)';
+            } else {
+                // Close Menu
+                mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+                mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+                mobileNavWrapper.classList.add('translate-y-8');
+                mobileNavWrapper.classList.remove('translate-y-0');
+
+                // Revert X to Hamburger
+                spans[0].classList.replace('mb-0', 'mb-1.5');
+                spans[0].style.transform = 'none';
+                spans[1].style.transform = 'none';
+            }
+        }
+
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+        // Close mobile menu when clicking a link
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (isMobileMenuOpen) toggleMobileMenu();
+            });
+        });
+
+        // Premium Marquee Effects
+        const premiumMarquee = document.getElementById('premium-marquee');
+        const marqueeContentBlock = document.querySelector('.marquee-content');
+
+        if (premiumMarquee && marqueeContentBlock) {
+            const baseTxt = "DAVI PLACCO \u2022 "; // The bullet character
+            const repeatedTxt = baseTxt.repeat(15);
+
+            // Generate individual letter spans
+            const htmlString = repeatedTxt.split('').map(char => {
+                if (char === ' ') return `<span class="mq-char">&nbsp;</span>`;
+                return `<span class="mq-char">${char}</span>`;
+            }).join('');
+
+            // Create two identical tracks so CSS -50% translation matches perfectly (seamless loop)
+            marqueeContentBlock.innerHTML = `<div class="flex">${htmlString}</div><div class="flex">${htmlString}</div>`;
+
+            // Smooth Deceleration Magic via Web Animations API + Math Easing
+            let hoverTween;
+            let currentRate = 1.0;
+
+            const targetPlaybackRate = (target) => {
+                clearInterval(hoverTween);
+                hoverTween = setInterval(() => {
+                    const anims = marqueeContentBlock.getAnimations();
+                    if (anims.length === 0) return clearInterval(hoverTween);
+
+                    // LERP (Linear Interpolation) for super smooth slowing/speeding
+                    currentRate += (target - currentRate) * 0.1;
+                    anims[0].playbackRate = currentRate;
+
+                    if (Math.abs(currentRate - target) < 0.01) {
+                        currentRate = target;
+                        anims[0].playbackRate = currentRate;
+                        clearInterval(hoverTween);
+                    }
+                }, 20);
+            };
+
+            premiumMarquee.addEventListener('mouseenter', () => targetPlaybackRate(0.15));
+            premiumMarquee.addEventListener('mouseleave', () => targetPlaybackRate(1.0));
+        }
+
+        // --- Premium Glitch / Disperse Logo Logic ---
+        const brandLogos = document.querySelectorAll('.brand-logo');
+        const rGen = (min, max) => Math.random() * (max - min) + min;
+
+        brandLogos.forEach(logo => {
+            const wrap = document.createElement('div');
+            wrap.className = "flex items-center relative gap-1.5";
+
+            // First Name - Extra Light
+            const p1 = document.createElement('div');
+            p1.className = "flex text-white font-extralight tracking-[0.15em]";
+            "DAVI".split('').forEach(char => {
+                const s = document.createElement('span');
+                s.className = "frag-chr inline-block transition-all duration-[700ms] ease-[cubic-bezier(0.16,1,0.3,1)]";
+                s.textContent = char;
+                s.style.setProperty('--tx', `${rGen(-35, 35)}px`);
+                s.style.setProperty('--ty', `${rGen(-35, 35)}px`);
+                s.style.setProperty('--tr', `${rGen(-60, 60)}deg`);
+                p1.appendChild(s);
+            });
+
+            // Last Name - Black & Gradient Azul mathematically stretched across spans to prevent clipping
+            const text2 = "PLACCO";
+            const p2 = document.createElement('div');
+            p2.className = "flex font-black tracking-tight";
+            text2.split('').forEach((char, idx) => {
+                const s = document.createElement('span');
+                const pct = idx * (100 / (text2.length - 1));
+                s.className = "frag-chr inline-block text-transparent bg-clip-text transition-all duration-[700ms] ease-[cubic-bezier(0.16,1,0.3,1)]";
+                s.style.backgroundImage = 'linear-gradient(to right, #0052ff, #93c5fd)';
+                s.style.webkitBackgroundClip = 'text'; // Safari support explicitly added
+                s.style.backgroundSize = `${text2.length * 100}% 100%`;
+                s.style.backgroundPosition = `${pct}% 0`;
+                s.textContent = char;
+                s.style.setProperty('--tx', `${rGen(-35, 35)}px`);
+                s.style.setProperty('--ty', `${rGen(-35, 35)}px`);
+                s.style.setProperty('--tr', `${rGen(-60, 60)}deg`);
+                p2.appendChild(s);
+            });
+
+            wrap.appendChild(p1);
+            wrap.appendChild(p2);
+            logo.appendChild(wrap);
+
+            // Scatter Matrix Interactivity (Dynamic Randomization on Hover)
+            logo.addEventListener('mouseenter', () => {
+                logo.querySelectorAll('.frag-chr').forEach((el, index) => {
+                    const delay = index * 12; // 12ms stagger wave
+
+                    // Generate wild new random directions purely per-interaction (Infinite possibilities)
+                    const nTx = rGen(-40, 40);
+                    const nTy = rGen(-40, 40);
+                    const nTr = rGen(-60, 60);
+
+                    el.style.transitionDelay = `${delay}ms`;
+                    el.style.transform = `translate(${nTx}px, ${nTy}px) rotate(${nTr}deg) scale(1.4)`;
+                    el.style.opacity = '0.35';
+                    el.style.filter = 'blur(4px)';
+                });
+            });
+
+            logo.addEventListener('mouseleave', () => {
+                logo.querySelectorAll('.frag-chr').forEach((el, index) => {
+                    // Reverse stagger to reform in reverse order elegantly
+                    const totalChars = logo.querySelectorAll('.frag-chr').length;
+                    const delay = (totalChars - 1 - index) * 12;
+                    el.style.transitionDelay = `${delay}ms`;
+                    el.style.transform = 'none';
+                    el.style.opacity = '1';
+                    el.style.filter = 'none';
+                });
+            });
+        });
+
+
+    </script>
+</body>
+
+</html>

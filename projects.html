@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Showcase | Davi Placco - Senior Full-Stack Developer & Designer</title>
+    <meta name="description" content="Explore a curated selection of high-performance digital projects, from fintech ecosystems to luxury 3D experiences.">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0052ff",
+                        "background": "#000000",
+                        "surface": "#0a0a0a",
+                        "on-surface-variant": "#9ca3af",
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "sans-serif"],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            background-color: #000000;
+            color: #e5e7eb;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(0, 82, 255, 0.4);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-5px);
+        }
+
+        .filter-btn {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            color: #ffffff;
+        }
+
+        .filter-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #0052ff;
+            box-shadow: 0 0 10px #0052ff;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 240px;
+            gap: 1.5rem;
+        }
+
+        .bento-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+        }
+
+        .bento-item.large { grid-column: span 2; grid-row: span 2; }
+        .bento-item.wide { grid-column: span 2; grid-row: span 1; }
+        .bento-item.tall { grid-column: span 1; grid-row: span 2; }
+
+        @media (max-width: 1024px) {
+            .bento-grid { grid-template-columns: repeat(2, 1fr); }
+            .bento-item.large, .bento-item.wide, .bento-item.tall { grid-column: span 2; }
+        }
+
+        @media (max-width: 640px) {
+            .bento-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
+            .bento-item { min-height: 300px; }
+        }
+
+        .project-image {
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .bento-item:hover .project-image {
+            transform: scale(1.05);
+        }
+
+        .case-modal {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 100;
+        }
+
+        .animate-reveal {
+            animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes reveal {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .gradient-border {
+            position: relative;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+            padding: 1px;
+        }
+        
+        .visit-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .visit-btn:hover {
+            background: #0052ff;
+            border-color: #0052ff;
+            box-shadow: 0 0 20px rgba(0, 82, 255, 0.4);
+        }
+    </style>
+</head>
+
+<body class="selection:bg-primary selection:text-white">
+    <!-- Navigation -->
+    <header class="fixed top-0 w-full z-50 flex justify-between items-center px-8 md:px-16 py-6 bg-black/50 backdrop-blur-xl border-b border-white/5">
+        <a href="index.html" class="flex items-center gap-2 group">
+            <span class="material-symbols-outlined text-primary group-hover:-translate-x-1 transition-transform">arrow_back</span>
+            <span class="text-xs font-black uppercase tracking-widest text-white">Back to Home</span>
+        </a>
+        <div class="flex gap-8">
+            <button onclick="filterProjects('all')" class="filter-btn active text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 hover:text-white">All Works</button>
+            <button onclick="filterProjects('dev')" class="filter-btn text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 hover:text-white">Development</button>
+            <button onclick="filterProjects('design')" class="filter-btn text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 hover:text-white">UI/UX Design</button>
+        </div>
+    </header>
+
+    <main class="pt-32 pb-24 px-8 md:px-16 max-w-[1400px] mx-auto">
+        <!-- Hero Section -->
+        <section class="mb-24 animate-reveal">
+            <span class="text-primary tracking-[0.4em] font-bold text-xs uppercase mb-6 block">Project Showcase</span>
+            <h1 class="text-6xl md:text-8xl font-black tracking-tighter text-white leading-tight">
+                Crafting Digital <br/>
+                <span class="text-gray-600">Excellence.</span>
+            </h1>
+            <p class="text-gray-500 text-lg md:text-xl max-w-2xl mt-8 font-light leading-relaxed">
+                A selection of high-impact solutions where advanced engineering meets refined aesthetics. 
+                Focused on delivering value through scalable architecture and superior user experience.
+            </p>
+        </section>
+
+        <!-- Bento Grid -->
+        <div id="projects-grid" class="bento-grid">
+            <!-- Project: Aurelius Fintech (Development / Large) -->
+            <div class="bento-item large glass-card p-2 group" data-category="dev">
+                <div class="relative w-full h-full rounded-[20px] overflow-hidden">
+                    <img src="assets/aurelius-mockup.png" alt="Aurelius Fintech" class="project-image w-full h-full object-cover opacity-60 group-hover:opacity-80">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-10">
+                        <span class="text-[10px] font-bold tracking-widest text-primary uppercase mb-2 block">Fintech • Next.js</span>
+                        <h3 class="text-4xl font-black text-white">Aurelius Analytics</h3>
+                        <p class="text-gray-400 text-sm mt-4 max-w-xs opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            Enterprise-grade wealth management dashboard with real-time data streaming.
+                        </p>
+                        <button onclick="openCase('aurelius')" class="mt-6 visit-btn px-6 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest text-white opacity-0 group-hover:opacity-100 transition-all">View Case Study</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project: Vanguarde (Development / tall) -->
+            <div class="bento-item tall glass-card p-2 group" data-category="dev">
+                <div class="relative w-full h-full rounded-[20px] overflow-hidden">
+                    <img src="https://daviplacco.github.io/vanguarde-calibre-01/watch-hero.png" alt="Vanguarde" class="project-image w-full h-full object-cover opacity-40 group-hover:opacity-60">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-[10px] font-bold tracking-widest text-primary uppercase mb-2 block">Interactive • Development</span>
+                        <h3 class="text-2xl font-black text-white">Vanguarde</h3>
+                        <button onclick="openCase('vanguarde')" class="mt-4 text-[10px] font-bold uppercase tracking-widest text-white border-b border-primary/40 pb-1">Read Case</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project: Krypton (Dev / Wide) -->
+            <div class="bento-item wide glass-card p-2 group" data-category="dev">
+                <div class="relative w-full h-full rounded-[20px] overflow-hidden">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXm5eSvo7thfsq_MBGZWPYo5Rqkg1IW6p2C-2D8OcVE2Gd75bwYyAuN-Z7UhghOUPKBS-UziN0AmM9_OUNEp7NLw4adlZUoaxksfLtDZ0sQkhpzkiP4PUZD6jtW8951eUOwm73LsK2eTwvQgHoBuOvlDHLSGFfBgTJsfCJkX1QwrxlGhnUEiqE-BdR4SE_O15Wkr85i6h0MYlN5Ox8taVEST2Aqq81FsR2Hmd7yZD4qm5NNTnGs5mzXam1C55M_MK19GzcKAkFnqk" alt="Krypton Mobile" class="project-image w-full h-full object-cover opacity-40 group-hover:opacity-60">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <h3 class="text-2xl font-black text-white">Krypton Mobile</h3>
+                        <p class="text-gray-400 text-xs mt-2 uppercase tracking-widest">Web3 Architecture</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project: To-do App (Design / Wide) -->
+            <div class="bento-item wide glass-card p-2 group" data-category="design">
+                <div class="relative w-full h-full rounded-[20px] overflow-hidden">
+                    <img src="assets/todo-mockup.png" alt="To-do App Design" class="project-image w-full h-full object-cover opacity-60 group-hover:opacity-80">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="text-[10px] font-bold tracking-widest text-primary uppercase mb-2 block">Branding • Mobile App</span>
+                        <h3 class="text-3xl font-black text-white">To-do App</h3>
+                        <div class="flex gap-4 mt-4">
+                            <button onclick="openCase('todo')" class="text-[10px] font-bold uppercase tracking-widest text-white border-b border-primary/40 pb-1">Case Study</button>
+                            <a href="https://www.behance.net/gallery/202070649/To-do-UXUI-and-Branding-%28Mobile-website-app%29" target="_blank" class="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-colors">Behance ↗</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project: Estate Knowledge (Dev / Square) -->
+            <div class="bento-item glass-card p-2 group" data-category="dev">
+                <div class="relative w-full h-full rounded-[20px] overflow-hidden bg-surface">
+                    <div class="absolute inset-0 flex items-center justify-center p-8">
+                         <span class="text-primary text-5xl font-black opacity-10">EK</span>
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <h3 class="text-lg font-black text-white">Estate Knowledge</h3>
+                        <p class="text-gray-500 text-[10px] uppercase font-bold tracking-widest">Full-Stack System</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project: Visual Identity (Design / Square) -->
+            <div class="bento-item glass-card p-2 group" data-category="design">
+                <div class="relative w-full h-full rounded-[20px] overflow-hidden bg-primary/5">
+                    <div class="absolute inset-0 flex items-center justify-center p-8">
+                         <span class="material-symbols-outlined text-6xl text-primary opacity-20">brush</span>
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <h3 class="text-lg font-black text-white">Brand Systems</h3>
+                        <p class="text-gray-500 text-[10px] uppercase font-bold tracking-widest">Minimalist Identity</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-12 px-8 md:px-16 border-t border-white/5 bg-black/40 backdrop-blur-xl">
+        <div class="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <p class="text-gray-500 text-[10px] font-black uppercase tracking-[0.2em]">
+                © 2026 DAVI PLACCO. ALL RIGHTS RESERVED.
+            </p>
+            <div class="flex gap-8">
+                <a class="text-gray-500 hover:text-white transition-colors text-[10px] font-black uppercase tracking-widest" href="https://www.linkedin.com/in/davi-placco-9b943217a/" target="_blank">LinkedIn</a>
+                <a class="text-gray-500 hover:text-white transition-colors text-[10px] font-black uppercase tracking-widest" href="https://github.com/DaviPlacco" target="_blank">GitHub</a>
+                <a class="text-gray-500 hover:text-white transition-colors text-[10px] font-black uppercase tracking-widest" href="https://www.behance.net/davibplacco" target="_blank">Behance</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Case Study Modal -->
+    <div id="case-modal" class="fixed inset-0 case-modal hidden overflow-y-auto px-8 py-16">
+        <div class="max-w-4xl mx-auto">
+            <button onclick="closeCase()" class="flex items-center gap-2 text-gray-500 hover:text-white mb-12 transition-colors">
+                <span class="material-symbols-outlined">close</span>
+                <span class="text-xs font-bold uppercase tracking-widest">Close Project</span>
+            </button>
+            
+            <div id="modal-content">
+                <!-- Content Injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const projectData = {
+            aurelius: {
+                title: "Aurelius Fintech Analytics",
+                category: "Development • Next.js",
+                image: "assets/aurelius-mockup.png",
+                challenge: "Design and implement a highly secure, real-time analytics dashboard for high-net-worth investors, requiring low latency and institutional-grade data visualization.",
+                solution: "Built on Next.js with a scalable micro-frontend architecture. Integrated real-time WebSocket streams for financial data and developed a custom 3D charting system using Three.js.",
+                result: "A 40% increase in user engagement and a successful seed round funding based on the platform's technical superiority and intuitive UX."
+            },
+            vanguarde: {
+                title: "Vanguarde Calibre 01",
+                category: "Development • Interactive • Motion",
+                image: "https://daviplacco.github.io/vanguarde-calibre-01/watch-hero.png",
+                challenge: "Translate the tactile luxury of Swiss watchmaking into a digital environment that conveys heritage while feeling futuristic.",
+                solution: "Created a minimalist, dark-themed experience with advanced CSS transitions and scroll-driven animations. Every interaction mimics the precision of a mechanical movement.",
+                result: "Award-nominated digital experience that successfully positioned the brand as a leader in modern horology design."
+            },
+            todo: {
+                title: "To Do Dashboard",
+                category: "Design • Mobile App • Productivity",
+                image: "assets/todo-mockup.png",
+                challenge: "The need for a centralized, intuitive platform to manage daily tasks, track deadlines, and organize files without the cognitive friction of traditional management tools.",
+                solution: "A comprehensive web-based mobile application with a focus on user-friendly design. Features include effortless task management, deadline setting, time tracking, and seamless file attachment.",
+                result: "A professional-grade organizational ecosystem that empowers users to stay efficient. The project successfully combined practical utility with a minimalist, high-end branding system."
+            }
+        };
+
+        function filterProjects(category) {
+            const items = document.querySelectorAll('.bento-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            if (event) event.target.classList.add('active');
+
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'block';
+                    item.classList.add('animate-reveal');
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function openCase(id) {
+            const data = projectData[id];
+            if (!data) return;
+
+            const content = `
+                <span class="text-primary tracking-[0.4em] font-bold text-xs uppercase mb-6 block">${data.category}</span>
+                <h2 class="text-5xl md:text-7xl font-black text-white mb-16">${data.title}</h2>
+                
+                <div class="grid md:grid-cols-3 gap-16">
+                    <div>
+                        <h4 class="text-white font-bold uppercase tracking-widest text-xs mb-4">The Challenge</h4>
+                        <p class="text-gray-400 font-light leading-relaxed">${data.challenge}</p>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold uppercase tracking-widest text-xs mb-4">The Solution</h4>
+                        <p class="text-gray-400 font-light leading-relaxed">${data.solution}</p>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold uppercase tracking-widest text-xs mb-4">The Result</h4>
+                        <p class="text-gray-400 font-light leading-relaxed">${data.result}</p>
+                    </div>
+                </div>
+                
+                <div class="mt-24 rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+                    <img src="${data.image}" alt="${data.title}" class="w-full h-auto object-cover opacity-90">
+                </div>
+            `;
+
+            document.getElementById('modal-content').innerHTML = content;
+            document.getElementById('case-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCase() {
+            document.getElementById('case-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+    </script>
+</body>
+
+</html>
