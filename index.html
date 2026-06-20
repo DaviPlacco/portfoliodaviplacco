@@ -55,17 +55,52 @@
         }
 
         .glass-button {
+            position: relative;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(8px);
-            border: 1px solid;
-            border-image-source: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.1) 100%);
-            border-image-slice: 1;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 99px;
             transition: all 0.3s ease;
+            overflow: hidden;
+            z-index: 1;
         }
 
         .glass-button:hover {
             background: rgba(255, 255, 255, 0.1);
             box-shadow: 0 0 20px rgba(0, 82, 255, 0.3);
+            border-color: transparent;
+        }
+
+        @property --border-angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+
+        a.glass-button::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 99px;
+            padding: 2px;
+            background: conic-gradient(from var(--border-angle), transparent 0%, transparent 40%, #00d2ff 70%, #0052ff 90%, transparent 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: spinBorder 2.5s linear infinite;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        a.glass-button:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes spinBorder {
+            0% { --border-angle: 0deg; }
+            100% { --border-angle: 360deg; }
         }
 
         .text-glow {
@@ -1493,7 +1528,7 @@
                 </h2>
                 <div class="flex flex-col items-center gap-8 sm:gap-12">
                     <a class="glass-button w-full max-w-[280px] sm:max-w-xs px-6 py-4 sm:px-16 sm:py-6 text-sm sm:text-lg font-bold uppercase tracking-[0.2em] text-white flex items-center justify-center gap-3 sm:gap-4 whitespace-nowrap"
-                        href="#">
+                        href="https://drive.google.com/file/d/1HQAHi8b9jMuJ528oDB2YvMBubvGNMfsX/view?usp=sharing" target="_blank">
                         <span class="material-symbols-outlined">download</span>
                         Download CV
                     </a>
