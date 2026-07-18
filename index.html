@@ -1077,21 +1077,39 @@
                                 Experience</p>
                         </div>
                     </div>
-                    <!-- Project 3 -->
+                    <!-- Live Preview Project: Finance Platform -->
                     <div class="group relative overflow-hidden glass-card h-[500px]">
-                        <img alt="Project 3"
-                            class="absolute inset-0 w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 transition-all duration-700"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXm5eSvo7thfsq_MBGZWPYo5Rqkg1IW6p2C-2D8OcVE2Gd75bwYyAuN-Z7UhghOUPKBS-UziN0AmM9_OUNEp7NLw4adlZUoaxksfLtDZ0sQkhpzkiP4PUZD6jtW8951eUOwm73LsK2eTwvQgHoBuOvlDHLSGFfBgTJsfCJkX1QwrxlGhnUEiqE-BdR4SE_O15Wkr85i6h0MYlN5Ox8taVEST2Aqq81FsR2Hmd7yZD4qm5NNTnGs5mzXam1C55M_MK19GzcKAkFnqk" />
-
-                        <!-- Premium Visit Button -->
-                        <div class="visit-project-btn" title="Case Study coming soon">
-                            <span class="material-symbols-outlined text-xl">lock</span>
+                        <!-- Live Indicator Badge -->
+                        <div class="live-indicator">
+                            <div class="pulse-dot"></div>
+                            <span class="text-[10px] uppercase font-bold tracking-[0.2em] text-white">Live
+                                Preview</span>
                         </div>
 
-                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
-                        <div class="absolute bottom-0 left-0 p-10">
-                            <h3 class="text-3xl font-black text-white">Krypton Mobile</h3>
-                            <p class="text-gray-500 text-sm mt-2 font-bold tracking-widest uppercase">Web3 Interface</p>
+                        <!-- Main Preview Image -->
+                        <img alt="Finance Platform"
+                            class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 group-hover:opacity-0 opacity-100"
+                            src="assets/finance-mockup.png" />
+
+                        <!-- Scaled Interactive Iframe Container -->
+                        <div class="live-preview-container">
+                            <iframe class="live-preview-frame" src="https://daviplacco.github.io/finance/"
+                                style="transform: scale(0.65); transform-origin: top left; width: 153%; height: 153%;"></iframe>
+                        </div>
+
+                        <!-- Premium Visit Button -->
+                        <a href="https://daviplacco.github.io/finance/" target="_blank"
+                            class="visit-project-btn" title="Open Live Site">
+                            <span class="material-symbols-outlined text-xl">open_in_new</span>
+                        </a>
+
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent pointer-events-none group-hover:opacity-0 transition-opacity duration-700">
+                        </div>
+                        <div
+                            class="absolute bottom-0 left-0 p-10 transition-all duration-700 group-hover:translate-y-10 group-hover:opacity-0 pointer-events-none">
+                            <h3 class="text-3xl font-black text-white">Finance Platform</h3>
+                            <p class="text-gray-500 text-sm mt-2 font-bold tracking-widest uppercase">SaaS Financial Management</p>
                         </div>
                     </div>
                 </div>
