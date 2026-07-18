@@ -219,14 +219,18 @@
                 </div>
             </div>
 
-            <!-- Project: Krypton (Dev / Wide) -->
+            <!-- Project: Finance (Dev / Wide) -->
             <div class="bento-item wide glass-card p-2 group" data-category="dev">
                 <div class="relative w-full h-full rounded-[20px] overflow-hidden">
-                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXm5eSvo7thfsq_MBGZWPYo5Rqkg1IW6p2C-2D8OcVE2Gd75bwYyAuN-Z7UhghOUPKBS-UziN0AmM9_OUNEp7NLw4adlZUoaxksfLtDZ0sQkhpzkiP4PUZD6jtW8951eUOwm73LsK2eTwvQgHoBuOvlDHLSGFfBgTJsfCJkX1QwrxlGhnUEiqE-BdR4SE_O15Wkr85i6h0MYlN5Ox8taVEST2Aqq81FsR2Hmd7yZD4qm5NNTnGs5mzXam1C55M_MK19GzcKAkFnqk" alt="Krypton Mobile" class="project-image w-full h-full object-cover opacity-40 group-hover:opacity-60">
+                    <img src="assets/finance-mockup.png" alt="Finance Platform" class="project-image w-full h-full object-cover opacity-60 group-hover:opacity-80">
                     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8">
-                        <h3 class="text-2xl font-black text-white">Krypton Mobile</h3>
-                        <p class="text-gray-400 text-xs mt-2 uppercase tracking-widest">Web3 Architecture</p>
+                        <span class="text-[10px] font-bold tracking-widest text-primary uppercase mb-2 block">Fintech • SaaS</span>
+                        <h3 class="text-3xl font-black text-white">Finance Platform</h3>
+                        <div class="flex gap-4 mt-4">
+                            <button onclick="openCase('finance')" class="text-[10px] font-bold uppercase tracking-widest text-white border-b border-primary/40 pb-1">Case Study</button>
+                            <a href="https://daviplacco.github.io/finance/" target="_blank" class="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-colors">Live Demo ↗</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -328,6 +332,14 @@
                 challenge: "The need for a centralized, intuitive platform to manage daily tasks, track deadlines, and organize files without the cognitive friction of traditional management tools.",
                 solution: "A comprehensive web-based mobile application with a focus on user-friendly design. Features include effortless task management, deadline setting, time tracking, and seamless file attachment.",
                 result: "A professional-grade organizational ecosystem that empowers users to stay efficient. The project successfully combined practical utility with a minimalist, high-end branding system."
+            },
+            finance: {
+                title: "Finance Platform",
+                category: "Development • Next.js • React",
+                image: "assets/finance-mockup.png",
+                challenge: "Develop a robust, visually stunning personal finance dashboard that processes complex financial reporting natively in the browser without relying on an external backend.",
+                solution: "Engineered a highly responsive 'White Label' platform using Next.js. Integrated local storage state management as a mock database and developed dynamic real-time charting and PDF generation entirely on the client side.",
+                result: "A seamless financial management experience that allows users to securely track expenses, simulate cash flows, and visualize asset growth in real time."
             }
         };
 
