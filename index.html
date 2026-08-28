@@ -103,12 +103,122 @@
             100% { --border-angle: 360deg; }
         }
 
-        .text-glow {
-            text-shadow: 0 0 15px rgba(0, 82, 255, 0.4);
+        /* ====================================================================
+           HERO AMBIENT LIGHT & GLOW SYSTEM (ULTRA-PREMIUM AURORA & GRID)
+           ==================================================================== */
+        .hero-glow-container {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+            -webkit-mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 92%);
+            mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 92%);
+        }
+
+        /* Subtle Cyber Grid with Radial Vignette */
+        .hero-grid-pattern {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+            background-size: 64px 64px;
+            -webkit-mask-image: radial-gradient(ellipse 75% 55% at 50% 38%, black 15%, transparent 75%);
+            mask-image: radial-gradient(ellipse 75% 55% at 50% 38%, black 15%, transparent 75%);
+            opacity: 0.75;
+        }
+
+        /* Central Deep Radiant Core Glow */
+        .hero-glow-core {
+            position: absolute;
+            top: 38%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: min(900px, 90vw);
+            height: min(900px, 90vw);
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 82, 255, 0.26) 0%, rgba(37, 99, 235, 0.14) 38%, rgba(0, 82, 255, 0.03) 65%, transparent 75%);
+            filter: blur(120px);
+            will-change: transform, opacity;
+            animation: heroCorePulse 9s ease-in-out infinite alternate;
+        }
+
+        /* Floating Cyan-Blue Accent Orb (Top Left / Center) */
+        .hero-orb-1 {
+            position: absolute;
+            top: 12%;
+            left: 18%;
+            width: min(550px, 70vw);
+            height: min(550px, 70vw);
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, rgba(0, 82, 255, 0.1) 45%, transparent 70%);
+            filter: blur(120px);
+            will-change: transform;
+            animation: heroOrbFloat1 14s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+        }
+
+        /* Floating Royal Indigo Accent Orb (Center Right) */
+        .hero-orb-2 {
+            position: absolute;
+            top: 35%;
+            right: 12%;
+            width: min(600px, 75vw);
+            height: min(600px, 75vw);
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 82, 255, 0.22) 0%, rgba(30, 58, 138, 0.15) 45%, transparent 70%);
+            filter: blur(130px);
+            will-change: transform;
+            animation: heroOrbFloat2 16s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+        }
+
+        /* Interactive Cursor Spotlight Glow */
+        .hero-interactive-spotlight {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(650px circle at var(--hero-mouse-x, 50%) var(--hero-mouse-y, 40%), rgba(0, 82, 255, 0.18), transparent 60%);
+            opacity: 0.85;
+            transition: opacity 0.6s ease;
+            will-change: background;
+        }
+
+        @keyframes heroCorePulse {
+            0% {
+                transform: translate(-50%, -50%) scale(0.92);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes heroOrbFloat1 {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(50px, -35px) scale(1.12);
+            }
+            100% {
+                transform: translate(-40px, 45px) scale(0.94);
+            }
+        }
+
+        @keyframes heroOrbFloat2 {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(-60px, -45px) scale(1.1);
+            }
+            100% {
+                transform: translate(45px, 30px) scale(0.92);
+            }
         }
 
         .bg-glow-radial {
-            background: radial-gradient(circle at 50% 50%, rgba(0, 82, 255, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle at 50% 50%, rgba(0, 82, 255, 0.15) 0%, transparent 70%);
         }
 
         html {
@@ -171,12 +281,17 @@
         }
 
         /* Experience Card Base */
+        /* Experience Card Base & Spinning Neon Border */
         .experience-card {
-            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease;
         }
 
-        .experience-card:hover {
-            transform: translateY(-4px);
+        .experience-card:hover,
+        .timeline-item.is-active .experience-card {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(0, 82, 255, 0.25), inset 0 0 25px rgba(0, 82, 255, 0.06);
         }
 
         /* Mouse Tracking Spotlight for Toolkit & Experience Cards */
@@ -207,6 +322,224 @@
         .spotlight-card:hover::before,
         .experience-card:hover::before {
             opacity: 1;
+        }
+
+        /* Spinning Border Animation matching CTA buttons */
+        .experience-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            padding: 2px;
+            background: conic-gradient(from var(--border-angle), transparent 0%, transparent 40%, #60a5fa 70%, #0052ff 90%, transparent 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: spinBorder 2.5s linear infinite;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .timeline-item.is-active .experience-card::after,
+        .timeline-item:hover .experience-card::after,
+        .experience-card:hover::after {
+            opacity: 1;
+        }
+
+        /* ====================================================================
+           PREMIUM TIMELINE — PROFESSIONAL PATH (LEFT-ALIGNED ROADMAP)
+           ==================================================================== */
+        .timeline-wrapper {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .timeline-wrapper {
+                padding-left: 5.5rem;
+            }
+        }
+
+        /* Timeline Ambient Guide Track */
+        .timeline-line-track {
+            position: absolute;
+            left: 8px;
+            top: 24px;
+            bottom: 24px;
+            width: 2px;
+            background: linear-gradient(180deg, rgba(0, 82, 255, 0.35) 0%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0.02) 100%);
+            border-radius: 99px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @media (min-width: 768px) {
+            .timeline-line-track {
+                left: 28px;
+            }
+        }
+
+        /* Dynamic Glowing Beam filled on scroll */
+        .timeline-line-progress {
+            position: absolute;
+            left: 8px;
+            top: 24px;
+            width: 2px;
+            height: 0%;
+            max-height: calc(100% - 48px);
+            background: linear-gradient(180deg, #60a5fa 0%, #0052ff 70%, #003db3 100%);
+            box-shadow: 0 0 14px rgba(0, 82, 255, 0.9), 0 0 28px rgba(0, 82, 255, 0.6);
+            border-radius: 99px;
+            transition: height 0.15s linear;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        @media (min-width: 768px) {
+            .timeline-line-progress {
+                left: 28px;
+            }
+        }
+
+        /* Timeline Item Node & Branch */
+        .timeline-item {
+            position: relative;
+            z-index: 10;
+        }
+
+        .timeline-node {
+            position: absolute;
+            left: -24px;
+            top: 36px;
+            transform: translate(-50%, -50%);
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #000000 !important;
+            border: 2px solid rgba(0, 82, 255, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 30;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 0 10px rgba(0, 82, 255, 0.4);
+        }
+
+        @media (min-width: 768px) {
+            .timeline-node {
+                left: -60px;
+                top: 42px;
+                width: 28px;
+                height: 28px;
+            }
+        }
+
+        .timeline-node-core {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #0052ff;
+            box-shadow: 0 0 8px #0052ff, 0 0 16px rgba(0, 82, 255, 0.8);
+            transition: all 0.4s ease;
+        }
+
+        @media (min-width: 768px) {
+            .timeline-node-core {
+                width: 10px;
+                height: 10px;
+            }
+        }
+
+        .timeline-node-pulse {
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(0, 82, 255, 0.7);
+            opacity: 0;
+            transform: scale(0.6);
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        /* Connector Line between Node and Card */
+        .timeline-connector {
+            position: absolute;
+            left: -13px;
+            top: 36px;
+            width: 13px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(0, 82, 255, 0.8) 0%, rgba(255, 255, 255, 0.1) 100%);
+            transition: all 0.4s ease;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        @media (min-width: 768px) {
+            .timeline-connector {
+                left: -46px;
+                top: 42px;
+                width: 46px;
+            }
+        }
+
+        /* Passed, Active & Hover States */
+        .timeline-item.is-passed .timeline-node,
+        .timeline-item.is-active .timeline-node,
+        .timeline-item:hover .timeline-node {
+            border-color: #3b82f6;
+            box-shadow: 0 0 16px rgba(0, 82, 255, 0.85);
+            transform: translate(-50%, -50%) scale(1.12);
+        }
+
+        .timeline-item.is-passed .timeline-node-core,
+        .timeline-item.is-active .timeline-node-core,
+        .timeline-item:hover .timeline-node-core {
+            background: #3b82f6;
+            box-shadow: 0 0 10px #3b82f6, 0 0 20px #0052ff;
+        }
+
+        .timeline-item.is-passed .timeline-connector,
+        .timeline-item.is-active .timeline-connector,
+        .timeline-item:hover .timeline-connector {
+            background: linear-gradient(90deg, #3b82f6 0%, rgba(0, 82, 255, 0.8) 100%);
+            box-shadow: 0 0 12px rgba(0, 82, 255, 0.8);
+        }
+
+        .timeline-item.is-active .timeline-node,
+        .timeline-item:hover .timeline-node {
+            transform: translate(-50%, -50%) scale(1.22);
+            box-shadow: 0 0 22px rgba(0, 82, 255, 1), 0 0 40px rgba(0, 82, 255, 0.8);
+        }
+
+        .timeline-item.is-active .timeline-node-pulse,
+        .timeline-item:hover .timeline-node-pulse {
+            opacity: 1;
+            animation: timelineRadarPulse 2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+        }
+
+        @keyframes timelineRadarPulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.9;
+            }
+            100% {
+                transform: scale(2.3);
+                opacity: 0;
+            }
+        }
+
+        /* Staggered card entrance */
+        .timeline-item.observe-me {
+            opacity: 0;
+            transform: translateX(35px);
+            transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .timeline-item.observe-me.is-visible {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         /* Premium Social Link Color & Center-Out Border */
@@ -704,6 +1037,111 @@
                 font-size: 2.75rem !important;
             }
         }
+
+        /* ====================================================================
+           PREMIUM DYNAMIC CALL-TO-ACTION TOAST SYSTEM
+           ==================================================================== */
+        .toast-system-wrapper {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+            max-width: 420px;
+            width: calc(100vw - 32px);
+            pointer-events: none;
+        }
+
+        .premium-toast {
+            position: relative;
+            background: rgba(10, 15, 28, 0.9);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(0, 82, 255, 0.4);
+            border-radius: 18px;
+            padding: 18px 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 82, 255, 0.25);
+            overflow: hidden;
+            pointer-events: auto;
+            transform: translateY(35px) scale(0.94);
+            opacity: 0;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                        opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                        box-shadow 0.4s ease,
+                        border-color 0.4s ease;
+        }
+
+        .premium-toast.is-visible {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        .premium-toast.is-leaving {
+            transform: translateY(30px) scale(0.95);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Hover Aura Glow and Border Reflection */
+        .premium-toast:hover {
+            border-color: rgba(59, 130, 246, 0.85);
+            box-shadow: 0 25px 65px rgba(0, 0, 0, 0.95), 0 0 50px rgba(0, 82, 255, 0.5);
+            transform: translateY(-2px) scale(1.01);
+        }
+
+        /* Spinning Border Ambient Glow on Toast */
+        .premium-toast::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 18px;
+            padding: 1.5px;
+            background: conic-gradient(from var(--border-angle), transparent 0%, transparent 40%, #60a5fa 70%, #0052ff 90%, transparent 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: spinBorder 3.5s linear infinite;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .premium-toast:hover::before {
+            opacity: 1;
+        }
+
+        /* Inner Ambient Radial Glow */
+        .toast-ambient-glow {
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 82, 255, 0.25) 0%, transparent 70%);
+            filter: blur(25px);
+            pointer-events: none;
+            z-index: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .premium-toast:hover .toast-ambient-glow {
+            opacity: 1;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, transparent 70%);
+        }
+
+        .toast-progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2.5px;
+            background: linear-gradient(90deg, #60a5fa, #0052ff);
+            box-shadow: 0 0 8px #0052ff;
+            width: 100%;
+            transform-origin: left;
+            transition: transform linear;
+            z-index: 2;
+        }
     </style>
 </head>
 
@@ -774,11 +1212,16 @@
         <!-- 1. Hero Section -->
         <section class="relative min-h-screen flex items-center justify-center px-8 md:px-24 pt-20 overflow-hidden"
             id="hero">
-            <div class="absolute inset-0 bg-glow-radial -z-10"></div>
-            <div
-                class="absolute -top-20 -right-20 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px] animate-pulse">
+            <!-- Ultra-Premium Ambient Blur Lighting System -->
+            <div class="hero-glow-container" aria-hidden="true">
+                <div class="hero-grid-pattern"></div>
+                <div class="hero-glow-core"></div>
+                <div class="hero-orb-1"></div>
+                <div class="hero-orb-2"></div>
+                <div class="hero-interactive-spotlight" id="heroInteractiveSpotlight"></div>
             </div>
-            <div class="max-w-6xl w-full flex flex-col items-center text-center reveal">
+
+            <div class="max-w-6xl w-full flex flex-col items-center text-center reveal relative z-10">
                 <span class="text-primary tracking-[0.4em] font-bold text-xs uppercase mb-6 block">Senior Full-Stack Web
                     Developer</span>
                 <h1
@@ -786,7 +1229,7 @@
                     <span class="mb-4 md:mb-8">Digital</span>
                     <span class="text-rotating">Architect.</span>
                 </h1>
-                <p class="text-gray-500 text-lg md:text-xl max-w-xl mb-14 font-light leading-relaxed mx-auto"
+                <p class="text-gray-400 text-lg md:text-xl max-w-xl mb-14 font-light leading-relaxed mx-auto"
                     style="text-wrap: balance;">
                     Crafting <span class="text-gray-200 font-medium tracking-wide">high-performance</span> digital
                     ecosystems where solid logic meets <span
@@ -804,6 +1247,8 @@
                     </a>
                 </div>
             </div>
+            <!-- Bottom Feathering Fade to pure black -->
+            <div class="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-b from-transparent via-black/60 to-black pointer-events-none z-10"></div>
         </section>
         <!-- 2. About Me Section -->
         <section class="py-32 px-8 md:px-24 bg-black relative" id="about">
@@ -853,127 +1298,205 @@
                     <h2 class="text-5xl md:text-7xl font-black tracking-tight text-white">Professional <span
                             class="text-gray-600">Path.</span></h2>
                 </div>
-                <div class="space-y-6">
-                    <!-- Exp 1 -->
-                    <div
-                        class="glass-card experience-card p-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 group">
-                        <div class="md:w-5/12">
-                            <span class="text-primary font-bold text-xs tracking-widest block mb-2 uppercase">03/2026 —
-                                Present</span>
-                            <h3 class="text-3xl font-bold text-white group-hover:text-primary transition-colors">Senior
-                                Full-Stack Web Developer & Creative Lead</h3>
-                            <p class="text-gray-500 font-medium">Estate Knowledge | Wyoming, USA</p>
+                <!-- Timeline Wrapper -->
+                <div class="timeline-wrapper">
+                    <!-- Vertical Timeline Ambient Track & Dynamic Glowing Beam -->
+                    <div class="timeline-line-track" aria-hidden="true"></div>
+                    <div class="timeline-line-progress" id="timelineProgress" aria-hidden="true"></div>
+
+                    <div class="space-y-8 md:space-y-10">
+                        <!-- Exp 1 -->
+                        <div class="timeline-item observe-me group">
+                            <div class="timeline-node" aria-hidden="true">
+                                <div class="timeline-node-pulse"></div>
+                                <div class="timeline-node-core"></div>
+                            </div>
+                            <div class="timeline-connector" aria-hidden="true"></div>
+
+                            <div
+                                class="glass-card experience-card p-8 md:p-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+                                <div class="md:w-5/12">
+                                    <span class="text-primary font-bold text-xs tracking-widest block mb-2 uppercase">03/2026 —
+                                        Present</span>
+                                    <h3 class="text-2xl md:text-3xl font-bold text-white group-hover:text-primary transition-colors">Senior
+                                        Full-Stack Web Developer &amp; Creative Lead</h3>
+                                    <p class="text-gray-500 font-medium">Estate Knowledge | Wyoming, USA</p>
+                                </div>
+                                <div class="md:w-7/12">
+                                    <p class="text-gray-400 italic font-light">Advanced Web Development, Wordpress management,
+                                        Server administration, and Database optimization. Managing high-performance digital
+                                        infrastructure.</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="md:w-7/12">
-                            <p class="text-gray-400 italic font-light">Advanced Web Development, Wordpress management,
-                                Server administration, and Database optimization. Managing high-performance digital
-                                infrastructure.</p>
+
+                        <!-- Exp 2 -->
+                        <div class="timeline-item observe-me group">
+                            <div class="timeline-node" aria-hidden="true">
+                                <div class="timeline-node-pulse"></div>
+                                <div class="timeline-node-core"></div>
+                            </div>
+                            <div class="timeline-connector" aria-hidden="true"></div>
+
+                            <div
+                                class="glass-card experience-card p-8 md:p-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+                                <div class="md:w-5/12">
+                                    <span class="text-primary font-bold text-xs tracking-widest block mb-2 uppercase">08/2025 —
+                                        03/2026</span>
+                                    <h3 class="text-2xl md:text-3xl font-bold text-white group-hover:text-primary transition-colors">Web
+                                        Designer</h3>
+                                    <p class="text-gray-500 font-medium">Agência Get Digital | Leiria, PT</p>
+                                </div>
+                                <div class="md:w-7/12">
+                                    <p class="text-gray-400 italic font-light">Design of high-converting Landing Pages, Creative
+                                        Content development, Ebook development, Figma prototyping, and SEO Optimization.</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <!-- Exp 2 -->
-                    <div
-                        class="glass-card experience-card p-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 group">
-                        <div class="md:w-5/12">
-                            <span class="text-primary font-bold text-xs tracking-widest block mb-2 uppercase">08/2025 —
-                                03/2026</span>
-                            <h3 class="text-3xl font-bold text-white group-hover:text-primary transition-colors">Web
-                                Designer</h3>
-                            <p class="text-gray-500 font-medium">Agência Get Digital | Leiria, PT</p>
+
+                        <!-- Exp 3 -->
+                        <div class="timeline-item observe-me group">
+                            <div class="timeline-node" aria-hidden="true">
+                                <div class="timeline-node-pulse"></div>
+                                <div class="timeline-node-core"></div>
+                            </div>
+                            <div class="timeline-connector" aria-hidden="true"></div>
+
+                            <div
+                                class="glass-card experience-card p-8 md:p-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+                                <div class="md:w-5/12">
+                                    <span class="text-primary font-bold text-xs tracking-widest block mb-2 uppercase">12/2024 —
+                                        07/2025</span>
+                                    <h3 class="text-2xl md:text-3xl font-bold text-white group-hover:text-primary transition-colors">Web
+                                        Designer</h3>
+                                    <p class="text-gray-500 font-medium">SONAE - MO Fashion | Maia/Porto, PT</p>
+                                </div>
+                                <div class="md:w-7/12">
+                                    <p class="text-gray-400 italic font-light">Web Development (HTML, CSS, JS, Bootstrap),
+                                        Salesforce customization, Paid Media design, Newsletter development, UI Design, and
+                                        Video production. SEO monitoring &amp; Project Management via ClickUp.</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="md:w-7/12">
-                            <p class="text-gray-400 italic font-light">Design of high-converting Landing Pages, Creative
-                                Content development, Ebook development, Figma prototyping, and SEO Optimization.</p>
+
+                        <!-- Exp 4 -->
+                        <div class="timeline-item observe-me group">
+                            <div class="timeline-node" aria-hidden="true">
+                                <div class="timeline-node-pulse"></div>
+                                <div class="timeline-node-core"></div>
+                            </div>
+                            <div class="timeline-connector" aria-hidden="true"></div>
+
+                            <div
+                                class="glass-card experience-card p-8 md:p-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+                                <div class="md:w-5/12">
+                                    <span class="text-primary font-bold text-xs tracking-widest block mb-2 uppercase">12/2023 —
+                                        12/2024</span>
+                                    <h3 class="text-2xl md:text-3xl font-bold text-white group-hover:text-primary transition-colors">Web
+                                        Designer &amp; Dev</h3>
+                                    <p class="text-gray-500 font-medium">Freelance | Leiria, PT</p>
+                                </div>
+                                <div class="md:w-7/12">
+                                    <p class="text-gray-400 italic font-light">Development of websites and landing pages, Figma
+                                        prototyping, and SEO Optimization.</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <!-- Exp 3 -->
-                    <div
-                        class="glass-card experience-card p-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 group">
-                        <div class="md:w-5/12">
-                            <span class="text-primary font-bold text-xs tracking-widest block mb-2 uppercase">12/2024 —
-                                07/2025</span>
-                            <h3 class="text-3xl font-bold text-white group-hover:text-primary transition-colors">Web
-                                Designer</h3>
-                            <p class="text-gray-500 font-medium">SONAE - MO Fashion | Maia/Porto, PT</p>
+
+                        <!-- Exp 5 -->
+                        <div class="timeline-item observe-me group">
+                            <div class="timeline-node" aria-hidden="true">
+                                <div class="timeline-node-pulse"></div>
+                                <div class="timeline-node-core"></div>
+                            </div>
+                            <div class="timeline-connector" aria-hidden="true"></div>
+
+                            <div
+                                class="glass-card experience-card p-8 md:p-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+                                <div class="md:w-5/12">
+                                    <span class="text-primary font-bold text-xs tracking-widest block mb-2 uppercase">02/2023 —
+                                        12/2023</span>
+                                    <h3 class="text-2xl md:text-3xl font-bold text-white group-hover:text-primary transition-colors">Web
+                                        Designer &amp; Dev</h3>
+                                    <p class="text-gray-500 font-medium">Você Digital Propaganda | Jundiaí, BR</p>
+                                </div>
+                                <div class="md:w-7/12">
+                                    <p class="text-gray-400 italic font-light">E-commerce development, API integration, Website
+                                        development, Figma prototyping, and SEO Optimization.</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="md:w-7/12">
-                            <p class="text-gray-400 italic font-light">Web Development (HTML, CSS, JS, Bootstrap),
-                                Salesforce customization, Paid Media design, Newsletter development, UI Design, and
-                                Video production. SEO monitoring &amp; Project Management via ClickUp.</p>
+
+                        <!-- Exp 6 -->
+                        <div class="timeline-item observe-me group">
+                            <div class="timeline-node" aria-hidden="true">
+                                <div class="timeline-node-pulse"></div>
+                                <div class="timeline-node-core"></div>
+                            </div>
+                            <div class="timeline-connector" aria-hidden="true"></div>
+
+                            <div
+                                class="glass-card experience-card p-8 md:p-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+                                <div class="md:w-5/12">
+                                    <span class="text-primary font-bold text-xs tracking-widest block mb-2 uppercase">06/2022 —
+                                        02/2023</span>
+                                    <h3 class="text-2xl md:text-3xl font-bold text-white group-hover:text-primary transition-colors">Web
+                                        Designer &amp; Dev</h3>
+                                    <p class="text-gray-500 font-medium">Eletrac Empilhadeiras | Jundiaí, BR</p>
+                                </div>
+                                <div class="md:w-7/12">
+                                    <p class="text-gray-400 italic font-light">Website development and SEO Optimization focused
+                                        on industrial equipment sector.</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <!-- Exp 4 -->
-                    <div
-                        class="glass-card experience-card p-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 group">
-                        <div class="md:w-5/12">
-                            <span class="text-primary font-bold text-xs tracking-widest block mb-2 uppercase">12/2023 —
-                                12/2024</span>
-                            <h3 class="text-3xl font-bold text-white group-hover:text-primary transition-colors">Web
-                                Designer &amp; Dev</h3>
-                            <p class="text-gray-500 font-medium">Freelance | Leiria, PT</p>
+
+                        <!-- Exp 7 -->
+                        <div class="timeline-item observe-me group">
+                            <div class="timeline-node" aria-hidden="true">
+                                <div class="timeline-node-pulse"></div>
+                                <div class="timeline-node-core"></div>
+                            </div>
+                            <div class="timeline-connector" aria-hidden="true"></div>
+
+                            <div
+                                class="glass-card experience-card p-8 md:p-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+                                <div class="md:w-5/12">
+                                    <span class="text-primary font-bold text-xs tracking-widest block mb-2 uppercase">11/2021 —
+                                        05/2022</span>
+                                    <h3 class="text-2xl md:text-3xl font-bold text-white group-hover:text-primary transition-colors">Marketing
+                                        Intern</h3>
+                                    <p class="text-gray-500 font-medium">Eletrac Empilhadeiras | Jundiaí, BR</p>
+                                </div>
+                                <div class="md:w-7/12">
+                                    <p class="text-gray-400 italic font-light">Website development, SEO, and Social Media
+                                        content creation.</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="md:w-7/12">
-                            <p class="text-gray-400 italic font-light">Development of websites and landing pages, Figma
-                                prototyping, and SEO Optimization.</p>
-                        </div>
-                    </div>
-                    <!-- Exp 5 -->
-                    <div
-                        class="glass-card experience-card p-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 group">
-                        <div class="md:w-5/12">
-                            <span class="text-primary font-bold text-xs tracking-widest block mb-2 uppercase">02/2023 —
-                                12/2023</span>
-                            <h3 class="text-3xl font-bold text-white group-hover:text-primary transition-colors">Web
-                                Designer &amp; Dev</h3>
-                            <p class="text-gray-500 font-medium">Você Digital Propaganda | Jundiaí, BR</p>
-                        </div>
-                        <div class="md:w-7/12">
-                            <p class="text-gray-400 italic font-light">E-commerce development, API integration, Website
-                                development, Figma prototyping, and SEO Optimization.</p>
-                        </div>
-                    </div>
-                    <!-- Exp 6 -->
-                    <div
-                        class="glass-card experience-card p-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 group">
-                        <div class="md:w-5/12">
-                            <span class="text-primary font-bold text-xs tracking-widest block mb-2 uppercase">06/2022 —
-                                02/2023</span>
-                            <h3 class="text-3xl font-bold text-white group-hover:text-primary transition-colors">Web
-                                Designer &amp; Dev</h3>
-                            <p class="text-gray-500 font-medium">Eletrac Empilhadeiras | Jundiaí, BR</p>
-                        </div>
-                        <div class="md:w-7/12">
-                            <p class="text-gray-400 italic font-light">Website development and SEO Optimization focused
-                                on industrial equipment sector.</p>
-                        </div>
-                    </div>
-                    <!-- Exp 7 -->
-                    <div
-                        class="glass-card experience-card p-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 group">
-                        <div class="md:w-5/12">
-                            <span class="text-primary font-bold text-xs tracking-widest block mb-2 uppercase">11/2021 —
-                                05/2022</span>
-                            <h3 class="text-3xl font-bold text-white group-hover:text-primary transition-colors">
-                                Marketing Intern</h3>
-                            <p class="text-gray-500 font-medium">Eletrac Empilhadeiras | Jundiaí, BR</p>
-                        </div>
-                        <div class="md:w-7/12">
-                            <p class="text-gray-400 italic font-light">Website development, SEO, and Social Media
-                                content creation.</p>
-                        </div>
-                    </div>
-                    <!-- Exp 8 -->
-                    <div
-                        class="glass-card experience-card p-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 group">
-                        <div class="md:w-5/12">
-                            <span class="text-primary font-bold text-xs tracking-widest block mb-2 uppercase">11/2019 —
-                                03/2021</span>
-                            <h3 class="text-3xl font-bold text-white group-hover:text-primary transition-colors">
-                                Marketing Assistant</h3>
-                            <p class="text-gray-500 font-medium">Sanx Ferramentas | Jundiaí, BR</p>
-                        </div>
-                        <div class="md:w-7/12">
-                            <p class="text-gray-400 italic font-light">E-commerce maintenance, SEO Optimization, and
-                                Social Media arts creation.</p>
+
+                        <!-- Exp 8 -->
+                        <div class="timeline-item observe-me group">
+                            <div class="timeline-node" aria-hidden="true">
+                                <div class="timeline-node-pulse"></div>
+                                <div class="timeline-node-core"></div>
+                            </div>
+                            <div class="timeline-connector" aria-hidden="true"></div>
+
+                            <div
+                                class="glass-card experience-card p-8 md:p-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+                                <div class="md:w-5/12">
+                                    <span class="text-primary font-bold text-xs tracking-widest block mb-2 uppercase">11/2019 —
+                                        03/2021</span>
+                                    <h3 class="text-2xl md:text-3xl font-bold text-white group-hover:text-primary transition-colors">Marketing
+                                        Assistant</h3>
+                                    <p class="text-gray-500 font-medium">Sanx Ferramentas | Jundiaí, BR</p>
+                                </div>
+                                <div class="md:w-7/12">
+                                    <p class="text-gray-400 italic font-light">E-commerce maintenance, SEO Optimization, and
+                                        Social Media arts creation.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1585,6 +2108,52 @@
             </div>
         </footer>
     </main>
+
+    <!-- Dynamic Call-To-Action Toast Notification System -->
+    <div class="toast-system-wrapper" aria-live="polite" id="toastWrapper">
+        <div class="premium-toast group" id="premiumToast">
+            <div class="toast-ambient-glow"></div>
+            <div class="relative z-10 flex items-start gap-3.5">
+                <!-- Icon badge -->
+                <div class="w-10 h-10 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center text-primary flex-shrink-0 shadow-[0_0_15px_rgba(0,82,255,0.3)] group-hover:scale-105 group-hover:border-primary/60 transition-all duration-300" id="toastIconWrap">
+                    <span class="material-symbols-outlined text-[20px]" id="toastIcon">chat_bubble</span>
+                </div>
+
+                <!-- Text content -->
+                <div class="flex-1 pr-5">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-bold text-primary uppercase tracking-wider" id="toastBadge">
+                            <span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+                            <span id="toastBadgeText">Available for Projects</span>
+                        </span>
+                    </div>
+                    <h4 class="text-sm font-bold text-white tracking-tight leading-tight mb-1 group-hover:text-primary transition-colors" id="toastTitle">
+                        Let's build something extraordinary.
+                    </h4>
+                    <p class="text-xs text-gray-400 font-light leading-relaxed mb-3" id="toastDesc">
+                        Have a project in mind or looking for a Senior Full-Stack Engineer / UI Designer?
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <a href="#contact" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-primary hover:bg-blue-600 text-white text-xs font-bold uppercase tracking-wider shadow-[0_0_15px_rgba(0,82,255,0.4)] hover:shadow-[0_0_22px_rgba(0,82,255,0.7)] transition-all duration-300 transform active:scale-95" id="toastCta">
+                            <span id="toastCtaText">Get in Touch</span>
+                            <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                        </a>
+                        <button type="button" class="text-[11px] text-gray-500 hover:text-gray-300 transition-colors font-medium cursor-pointer" id="toastDismissBtn">
+                            Not now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Close Button -->
+                <button type="button" class="absolute top-0 right-0 w-7 h-7 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 hover:border-white/20 text-gray-400 hover:text-white flex items-center justify-center transition-all cursor-pointer" id="toastCloseBtn" aria-label="Dismiss notification">
+                    <span class="material-symbols-outlined text-[16px]">close</span>
+                </button>
+            </div>
+            <!-- Progress Line Bar -->
+            <div class="toast-progress-bar" id="toastProgressBar"></div>
+        </div>
+    </div>
+
     <script>
         // Spotlight interaction for toolkit and tech stack cards
         const spotlightCards = document.querySelectorAll('.spotlight-card, .experience-card');
@@ -1905,6 +2474,221 @@
             });
         });
 
+        // --- Premium Timeline Scroll Progress Tracker ---
+        function initTimelineTracker() {
+            const timelineProgress = document.getElementById('timelineProgress');
+            const timelineWrapper = document.querySelector('.timeline-wrapper');
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            if (!timelineProgress || !timelineWrapper || !timelineItems.length) return;
+
+            function updateTimeline() {
+                const rect = timelineWrapper.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+
+                // Calculation: progress line height
+                const totalHeight = rect.height;
+                const triggerPoint = windowHeight * 0.65;
+                const visibleHeight = triggerPoint - rect.top;
+                let progressPct = (visibleHeight / totalHeight) * 100;
+                progressPct = Math.max(0, Math.min(100, progressPct));
+
+                timelineProgress.style.height = `${progressPct}%`;
+
+                // Find the card currently closest to the reading focus line
+                let closestActiveItem = null;
+                let minDistance = Infinity;
+
+                timelineItems.forEach(item => {
+                    const itemRect = item.getBoundingClientRect();
+                    const nodeTop = itemRect.top + 36;
+
+                    // Light up node if the beam has reached it
+                    if (nodeTop <= triggerPoint) {
+                        item.classList.add('is-passed');
+                    } else {
+                        item.classList.remove('is-passed');
+                    }
+
+                    // Check reading line focus for active card border animation
+                    const cardCenter = itemRect.top + (itemRect.height / 2);
+                    const distFromFocus = Math.abs(cardCenter - (windowHeight * 0.52));
+
+                    if (itemRect.top < windowHeight * 0.82 && itemRect.bottom > windowHeight * 0.18) {
+                        if (distFromFocus < minDistance) {
+                            minDistance = distFromFocus;
+                            closestActiveItem = item;
+                        }
+                    }
+                });
+
+                timelineItems.forEach(item => {
+                    if (item === closestActiveItem) {
+                        item.classList.add('is-active');
+                    } else {
+                        item.classList.remove('is-active');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', updateTimeline, { passive: true });
+            window.addEventListener('resize', updateTimeline, { passive: true });
+            updateTimeline();
+        }
+
+        initTimelineTracker();
+
+        // --- Interactive Hero Spotlight Mouse Tracking ---
+        const heroSectionEl = document.getElementById('hero');
+        if (heroSectionEl) {
+            heroSectionEl.addEventListener('mousemove', (e) => {
+                const rect = heroSectionEl.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                heroSectionEl.style.setProperty('--hero-mouse-x', `${x}px`);
+                heroSectionEl.style.setProperty('--hero-mouse-y', `${y}px`);
+            }, { passive: true });
+        }
+
+        // --- Premium Dynamic Call-To-Action Toast System ---
+        (function initPremiumToastEngine() {
+            const toastData = [
+                {
+                    badge: "🚀 AVAILABLE FOR PROJECTS",
+                    icon: "chat_bubble",
+                    title: "Let's build something extraordinary.",
+                    desc: "Have a project in mind or looking for a Senior Full-Stack Engineer / UI Designer to elevate your team?",
+                    ctaText: "Get in Touch",
+                    ctaLink: "#contact",
+                    target: "_self"
+                },
+                {
+                    badge: "💼 PROFESSIONAL NETWORK",
+                    icon: "badge",
+                    title: "Connect with me on LinkedIn",
+                    desc: "Follow deep-dive insights on frontend architecture, new project releases, and high-performance design.",
+                    ctaText: "View LinkedIn",
+                    ctaLink: "https://www.linkedin.com/in/davi-placco-9b943217a/",
+                    target: "_blank"
+                },
+                {
+                    badge: "📄 CAREER & STACK",
+                    icon: "description",
+                    title: "Explore my Official Resume",
+                    desc: "Review my technical leadership background, modern production stack, and verified business impact.",
+                    ctaText: "Access Official CV",
+                    ctaLink: "https://drive.google.com/file/d/1HQAHi8b9jMuJ528oDB2YvMBubvGNMfsX/view?usp=sharing",
+                    target: "_blank"
+                },
+                {
+                    badge: "⚡ CODEBASE & ARCHITECTURE",
+                    icon: "terminal",
+                    title: "Explore my GitHub Ecosystem",
+                    desc: "Discover scalable architectures, clean TypeScript/React codebases, and high-fidelity production repositories.",
+                    ctaText: "Explore GitHub",
+                    ctaLink: "https://github.com/DaviPlacco",
+                    target: "_blank"
+                },
+                {
+                    badge: "🎨 VISUAL CASE STUDIES",
+                    icon: "palette",
+                    title: "Check out my design work on Behance",
+                    desc: "Explore refined design systems, digital brand identities, and high-conversion interactive UI architectures.",
+                    ctaText: "View on Behance",
+                    ctaLink: "https://www.behance.net/davibplacco",
+                    target: "_blank"
+                }
+            ];
+
+            let currentIndex = 0;
+            const toastEl = document.getElementById('premiumToast');
+            const toastWrapper = document.getElementById('toastWrapper');
+            const toastIcon = document.getElementById('toastIcon');
+            const toastBadgeText = document.getElementById('toastBadgeText');
+            const toastTitle = document.getElementById('toastTitle');
+            const toastDesc = document.getElementById('toastDesc');
+            const toastCta = document.getElementById('toastCta');
+            const toastCtaText = document.getElementById('toastCtaText');
+            const toastCloseBtn = document.getElementById('toastCloseBtn');
+            const toastDismissBtn = document.getElementById('toastDismissBtn');
+            const toastProgressBar = document.getElementById('toastProgressBar');
+
+            if (!toastEl || !toastWrapper) return;
+
+            let autoHideTimeout = null;
+            const DISPLAY_DURATION = 15000; // 15 seconds on screen
+            const REPEAT_INTERVAL = 5 * 60 * 1000; // Exactly 5 minutes (300,000 ms)
+            let isHovered = false;
+
+            function renderToast(index) {
+                const item = toastData[index % toastData.length];
+                toastBadgeText.textContent = item.badge;
+                toastIcon.textContent = item.icon;
+                toastTitle.textContent = item.title;
+                toastDesc.textContent = item.desc;
+                toastCtaText.textContent = item.ctaText;
+                toastCta.setAttribute('href', item.ctaLink);
+
+                if (item.target === '_blank') {
+                    toastCta.setAttribute('target', '_blank');
+                    toastCta.setAttribute('rel', 'noopener noreferrer');
+                } else {
+                    toastCta.removeAttribute('target');
+                    toastCta.removeAttribute('rel');
+                }
+            }
+
+            function showToast() {
+                renderToast(currentIndex);
+                toastEl.classList.remove('is-leaving');
+                toastEl.classList.add('is-visible');
+
+                // Progress bar animation
+                toastProgressBar.style.transition = 'none';
+                toastProgressBar.style.transform = 'scaleX(1)';
+                void toastProgressBar.offsetWidth; // trigger reflow
+                toastProgressBar.style.transition = `transform ${DISPLAY_DURATION}ms linear`;
+                toastProgressBar.style.transform = 'scaleX(0)';
+
+                clearTimeout(autoHideTimeout);
+                autoHideTimeout = setTimeout(() => {
+                    if (!isHovered) hideToast();
+                }, DISPLAY_DURATION);
+
+                currentIndex = (currentIndex + 1) % toastData.length;
+            }
+
+            function hideToast() {
+                toastEl.classList.remove('is-visible');
+                toastEl.classList.add('is-leaving');
+                clearTimeout(autoHideTimeout);
+            }
+
+            // Hover interactions (pause countdown and intensify glow)
+            toastEl.addEventListener('mouseenter', () => {
+                isHovered = true;
+                toastProgressBar.style.transition = 'none';
+            });
+
+            toastEl.addEventListener('mouseleave', () => {
+                isHovered = false;
+                clearTimeout(autoHideTimeout);
+                autoHideTimeout = setTimeout(hideToast, 4000); // 4s grace period
+            });
+
+            if (toastCloseBtn) toastCloseBtn.addEventListener('click', hideToast);
+            if (toastDismissBtn) toastDismissBtn.addEventListener('click', hideToast);
+            if (toastCta) {
+                toastCta.addEventListener('click', () => {
+                    setTimeout(hideToast, 250);
+                });
+            }
+
+            // Initial appearance after 8 seconds of engagement
+            setTimeout(showToast, 8000);
+
+            // Repeat dynamic rotation every 5 minutes
+            setInterval(showToast, REPEAT_INTERVAL);
+        })();
 
     </script>
 </body>
