@@ -2167,10 +2167,10 @@
             });
         });
 
-        // Intersection Observer for reveal animations (Two-way visibility)
+        // Intersection Observer for reveal animations (Stable Direction-Aware Visibility)
         const observerOptions = {
-            threshold: 0.05, // Só atua quando pelo menos 5% está visível
-            rootMargin: '-5% 0px -5% 0px' // Margem de segurança para evitar cortes bruscos
+            threshold: 0.05,
+            rootMargin: '0px 0px -4% 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -2182,11 +2182,14 @@
                         entry.target.style.transform = 'translateY(0)';
                     }
                 } else {
-                    // Remove a classe para o efeito de saída, mas de forma estável
-                    entry.target.classList.remove('is-visible');
-                    if (entry.target.classList.contains('reveal')) {
-                        entry.target.style.opacity = '0';
-                        entry.target.style.transform = 'translateY(20px)';
+                    // Only reset animation if the element is BELOW the bottom of the viewport (scrolling back up)
+                    // Elements ABOVE the viewport stay rendered to prevent document height shift and bounce glitches!
+                    if (entry.boundingClientRect.top > 0) {
+                        entry.target.classList.remove('is-visible');
+                        if (entry.target.classList.contains('reveal')) {
+                            entry.target.style.opacity = '0';
+                            entry.target.style.transform = 'translateY(20px)';
+                        }
                     }
                 }
             });
