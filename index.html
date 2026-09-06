@@ -1,10 +1,24 @@
+<!DOCTYPE html>
 <html class="dark" lang="en">
 
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Davi Placco | Digital Architect</title>
+    <title>Davi Placco | Senior Full-Stack Developer & Creative Lead</title>
+    <meta name="description" content="Portfolio of Davi Placco, a Senior Full-Stack Developer and Creative Lead building high-performance digital products, scalable web architectures, and refined user experiences." />
+    <meta name="author" content="Davi Placco" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#000000" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Davi Placco | Senior Full-Stack Developer & Creative Lead" />
+    <meta property="og:description" content="High-performance digital products where advanced engineering meets refined design." />
+    <meta property="og:site_name" content="Davi Placco Portfolio" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Davi Placco | Senior Full-Stack Developer & Creative Lead" />
+    <meta name="twitter:description" content="High-performance digital products where advanced engineering meets refined design." />
     <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet" />
     <link
@@ -223,12 +237,414 @@
 
         html {
             scroll-behavior: smooth;
+            overflow-x: clip;
         }
 
         body {
             background-color: #000000;
             color: #e5e7eb;
-            overflow-x: hidden;
+            overflow-x: clip;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .skip-link {
+            position: fixed;
+            top: 0.75rem;
+            left: 0.75rem;
+            z-index: 10000;
+            padding: 0.75rem 1rem;
+            border-radius: 999px;
+            background: #ffffff;
+            color: #000000;
+            font-weight: 800;
+            transform: translateY(-180%);
+            transition: transform 0.2s ease;
+        }
+
+        .skip-link:focus {
+            transform: translateY(0);
+        }
+
+        :focus-visible {
+            outline: 3px solid #75a7ff;
+            outline-offset: 4px;
+        }
+
+        .text-primary {
+            color: #75a7ff !important;
+        }
+
+        .text-gray-500 {
+            color: #9ca3af !important;
+        }
+
+        .text-\[9px\],
+        .text-\[10px\] {
+            font-size: 0.75rem !important;
+        }
+
+        /* Editorial profile composition inspired by the supplied reference. */
+        .about-stage {
+            position: relative;
+            min-height: 900px;
+            display: flex;
+            align-items: stretch;
+            overflow: hidden;
+            isolation: isolate;
+            background:
+                radial-gradient(circle at 82% 18%, rgba(82, 157, 255, 0.45), transparent 36%),
+                linear-gradient(115deg, #06111f 0%, #07192d 48%, #0b315b 100%);
+            contain: paint;
+        }
+
+        .about-stage::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background: linear-gradient(to bottom, transparent 44%, rgba(0, 0, 0, 0.48) 72%, #000 100%);
+            pointer-events: none;
+        }
+
+        .about-type-layer {
+            position: absolute;
+            inset: 0;
+            z-index: -2;
+            overflow: hidden;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .about-name,
+        .about-subtitle {
+            position: absolute;
+            margin: 0;
+            white-space: nowrap;
+            font-weight: 900;
+            letter-spacing: -0.08em;
+            line-height: 0.76;
+        }
+
+        .about-name {
+            top: 8%;
+            font-size: clamp(9rem, 20vw, 23rem);
+            background: linear-gradient(90deg, #0052ff 0%, #72b8ff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .about-name-first {
+            left: 7%;
+            opacity: 0.78;
+            filter: blur(11px);
+        }
+
+        .about-name-last {
+            left: 48%;
+            opacity: 0.68;
+        }
+
+        .about-subtitle {
+            top: 45%;
+            left: 53%;
+            font-size: clamp(8rem, 17vw, 20rem);
+            color: rgba(76, 143, 225, 0.24);
+        }
+
+        .about-layout {
+            width: min(100%, 1600px);
+            min-width: 0;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: minmax(0, 0.9fr) minmax(300px, 430px) minmax(340px, 0.95fr);
+            gap: clamp(2rem, 5vw, 6rem);
+            align-items: end;
+            padding: 5rem clamp(2rem, 6vw, 7rem) 6rem;
+        }
+
+        .about-portrait {
+            grid-column: 2;
+            align-self: end;
+            height: min(78vh, 760px);
+            min-height: 600px;
+            margin-bottom: -6rem;
+            position: relative;
+        }
+
+        .about-portrait::before {
+            content: '';
+            position: absolute;
+            inset: 8% -18% 0;
+            z-index: -1;
+            border-radius: 50%;
+            background: rgba(38, 116, 255, 0.2);
+            filter: blur(70px);
+        }
+
+        .about-portrait img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            object-position: center top;
+            filter: grayscale(1) contrast(1.06);
+            mix-blend-mode: screen;
+            -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 74%, transparent 100%);
+            mask-image: linear-gradient(to bottom, #000 0%, #000 74%, transparent 100%);
+        }
+
+        .about-copy {
+            grid-column: 3;
+            max-width: 42rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .about-copy h2 {
+            font-size: clamp(2.5rem, 4.5vw, 5.5rem);
+            line-height: 0.95;
+            letter-spacing: -0.055em;
+            color: #fff;
+        }
+
+        .about-copy p {
+            max-width: 62ch;
+            font-size: clamp(1rem, 1.25vw, 1.18rem);
+            line-height: 1.65;
+            color: #c6cfdb;
+        }
+
+        @media (max-width: 1100px) {
+            header > nav {
+                display: none !important;
+            }
+
+            #mobile-menu-btn {
+                display: flex !important;
+            }
+
+            .about-stage {
+                min-height: 820px;
+            }
+
+            .about-layout {
+                grid-template-columns: minmax(260px, 0.8fr) minmax(0, 1.2fr);
+                gap: 3rem;
+                padding-inline: clamp(2rem, 6vw, 4rem);
+            }
+
+            .about-portrait {
+                grid-column: 1;
+                min-height: 560px;
+                height: 68vh;
+            }
+
+            .about-copy {
+                grid-column: 2;
+            }
+
+            .about-name-first {
+                left: -5%;
+            }
+
+            .about-name-last {
+                left: 38%;
+            }
+
+            #skills .max-w-7xl {
+                grid-template-columns: minmax(0, 1fr) !important;
+                gap: 5rem !important;
+            }
+
+            .orbital-container {
+                display: none !important;
+            }
+
+            .mobile-skills-grid {
+                display: grid !important;
+            }
+        }
+
+        @media (max-width: 767px) {
+            header {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+                gap: 0.5rem;
+            }
+
+            header .brand-logo {
+                min-width: 0;
+                padding: 0.55rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            header > .pointer-events-auto {
+                flex-shrink: 0;
+                gap: 0.5rem;
+            }
+
+            #hero {
+                padding-left: 1.25rem !important;
+                padding-right: 1.25rem !important;
+            }
+
+            #hero .hero-content,
+            #hero .hero-content > span,
+            #hero .hero-content > p {
+                width: 100%;
+                min-width: 0;
+                max-width: 100%;
+            }
+
+            #hero .hero-content > span {
+                padding-inline: 0.25rem;
+                letter-spacing: 0.24em;
+                line-height: 1.8;
+                overflow-wrap: anywhere;
+            }
+
+            #hero h1 {
+                width: 100%;
+                min-width: 0;
+                font-size: clamp(3rem, 14vw, 5rem) !important;
+            }
+
+            .text-rotating {
+                width: 100%;
+                min-width: 0;
+                display: flex;
+                justify-content: center;
+            }
+
+            #hero .hero-content > p {
+                font-size: 1rem;
+            }
+
+            #hero .hero-content > .flex {
+                width: 100%;
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            #hero .hero-content > .flex a {
+                width: min(100%, 18rem);
+                padding: 1rem 1.25rem;
+                text-align: center;
+            }
+
+            .about-stage {
+                min-height: auto;
+            }
+
+            .about-layout {
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1.5rem;
+                padding: 6.5rem 1.25rem 5rem;
+            }
+
+            .about-portrait {
+                width: min(100%, 430px);
+                height: 560px;
+                min-height: 0;
+                align-self: center;
+                margin: 0;
+            }
+
+            .about-copy {
+                width: 100%;
+                padding: 0;
+            }
+
+            .about-copy h2 {
+                font-size: clamp(2.7rem, 14vw, 4.5rem);
+            }
+
+            .about-name {
+                top: 4%;
+                font-size: clamp(6.5rem, 38vw, 12rem);
+            }
+
+            .about-name-first {
+                left: -10%;
+                filter: blur(8px);
+            }
+
+            .about-name-last {
+                top: 23%;
+                left: 22%;
+            }
+
+            .about-subtitle {
+                display: none;
+            }
+
+            #projects .group.glass-card {
+                width: 100%;
+                min-width: 0;
+            }
+
+            #projects .group.glass-card h3,
+            #projects .group.glass-card p {
+                max-width: 100%;
+                overflow-wrap: anywhere;
+            }
+
+            .toast-system-wrapper {
+                right: 0.75rem;
+                left: 0.75rem;
+                bottom: 0.75rem;
+                width: auto;
+                max-width: none;
+            }
+
+            .premium-toast {
+                padding: 0.9rem 1rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            header .glass-button {
+                display: none !important;
+            }
+
+            .premium-toast #toastDesc {
+                display: none;
+            }
+        }
+
+        @media (max-width: 420px) {
+
+            .about-layout {
+                padding-inline: 1rem;
+            }
+
+            .about-portrait {
+                height: 500px;
+            }
+
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
         }
 
         /* Smooth reveal on scroll helper - Premium Easing */
@@ -256,6 +672,11 @@
             width: max-content;
             animation: marquee 30s linear infinite;
             will-change: transform;
+        }
+
+        #premium-marquee {
+            max-width: 100vw;
+            contain: paint;
         }
 
         .mq-char {
@@ -887,6 +1308,13 @@
             pointer-events: auto;
         }
 
+        .group:focus-within .live-preview-container,
+        .group:focus-within .live-indicator,
+        .group:focus-within .visit-project-btn {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
         .live-indicator {
             position: absolute;
             top: 2rem;
@@ -1146,6 +1574,7 @@
 </head>
 
 <body class="selection:bg-primary selection:text-white" data-mode="connect">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <!-- Fixed Navigation Menu -->
     <header
         class="fixed top-0 md:top-6 w-full z-50 flex justify-between items-center px-8 md:px-16 py-4 md:py-0 bg-black/80 md:bg-transparent backdrop-blur-xl md:backdrop-blur-none border-b border-white/10 md:border-transparent pointer-events-auto md:pointer-events-none transition-all">
@@ -1156,7 +1585,7 @@
         </a>
 
         <!-- Capsule Nav -->
-        <nav
+        <nav aria-label="Primary navigation"
             class="hidden md:flex items-center gap-1 p-1.5 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full pointer-events-auto shadow-2xl">
             <!-- Active Item -->
             <a class="px-5 py-2.5 rounded-full bg-white/10 text-xs uppercase tracking-widest font-bold text-white transition-colors"
@@ -1182,7 +1611,8 @@
 
             <!-- Hamburger Toggle -->
             <button id="mobile-menu-btn"
-                class="md:hidden flex flex-col justify-center items-center w-10 h-10 rounded-full bg-white/5 border border-white/10 relative z-[60]">
+                class="md:hidden flex flex-col justify-center items-center w-10 h-10 rounded-full bg-white/5 border border-white/10 relative z-[60]"
+                type="button" aria-label="Open navigation menu" aria-controls="mobile-menu" aria-expanded="false">
                 <span
                     class="block w-4 h-[2px] bg-white rounded transition-all duration-300 mb-1.5 origin-center"></span>
                 <span class="block w-4 h-[2px] bg-white rounded transition-all duration-300 origin-center"></span>
@@ -1192,8 +1622,9 @@
 
     <!-- Mobile Menu Overlay -->
     <div id="mobile-menu"
-        class="fixed inset-0 z-40 bg-black/95 backdrop-blur-3xl flex flex-col justify-center items-center opacity-0 pointer-events-none transition-opacity duration-500">
-        <nav class="flex flex-col gap-8 text-center translate-y-8 transition-transform duration-500"
+        class="fixed inset-0 z-40 bg-black/95 backdrop-blur-3xl flex flex-col justify-center items-center opacity-0 pointer-events-none transition-opacity duration-500"
+        aria-hidden="true" inert>
+        <nav aria-label="Mobile navigation" class="flex flex-col gap-8 text-center translate-y-8 transition-transform duration-500"
             id="mobile-nav-wrapper">
             <a class="mobile-nav-link text-3xl font-black tracking-widest text-white uppercase" href="#hero">Hero</a>
             <a class="mobile-nav-link text-3xl font-black tracking-widest text-gray-500 hover:text-white uppercase"
@@ -1208,7 +1639,7 @@
                 href="#contact">Contact</a>
         </nav>
     </div>
-    <main>
+    <main id="main-content">
         <!-- 1. Hero Section -->
         <section class="relative min-h-screen flex items-center justify-center px-8 md:px-24 pt-20 overflow-hidden"
             id="hero">
@@ -1221,7 +1652,7 @@
                 <div class="hero-interactive-spotlight" id="heroInteractiveSpotlight"></div>
             </div>
 
-            <div class="max-w-6xl w-full flex flex-col items-center text-center reveal relative z-10">
+            <div class="hero-content max-w-6xl w-full flex flex-col items-center text-center reveal relative z-10">
                 <span class="text-primary tracking-[0.4em] font-bold text-xs uppercase mb-6 block">Senior Full-Stack Web
                     Developer</span>
                 <h1
@@ -1251,30 +1682,24 @@
             <div class="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-b from-transparent via-black/60 to-black pointer-events-none z-10"></div>
         </section>
         <!-- 2. About Me Section -->
-        <section class="py-32 px-8 md:px-24 bg-black relative" id="about">
-            <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-20 items-center observe-me">
-                <div class="w-full md:w-5/12 aspect-[4/5] relative">
-                    <div class="absolute -inset-4 border border-white/10 glass-card -z-10 translate-x-4 translate-y-4">
-                    </div>
-                    <img alt="Davi Placco Portrait"
-                        class="object-cover w-full h-full grayscale hover:grayscale-0 transition-all duration-1000 shadow-2xl"
-                        src="assets/profile-davi.png" />
-                </div>
-                <div class="w-full md:w-7/12">
-                    <span class="text-primary text-xs font-bold tracking-[0.3em] uppercase mb-6 block">01 /
-                        Profile</span>
-                    <h2 class="text-5xl md:text-7xl font-black tracking-tight mb-10 text-white">Davi Placco<br /><span
-                            class="text-gray-500">About me.</span></h2>
-                    <div class="space-y-8 text-gray-400 leading-relaxed text-xl font-light">
-                        <p>As a <b>Senior Full-Stack Developer & Creative Lead</b>, I architect high-performance digital
-                            ecosystems that bridge the gap between complex engineering and premium aesthetics. While I
-                            master the strategic implementation of platforms like <b>WordPress and Salesforce</b>, my
-                            core expertise lies in <b>custom-coded solutions</b>, crafting bespoke, pure-code
-                            architectures that ensure absolute scalability and peak performance. By merging avant-garde
-                            <b>Design</b> with advanced <b>Engineering</b> and <b>SEO Strategy</b>, I transform
-                            ambitious visions into technically superior experiences that drive measurable growth.
-                        </p>
-                    </div>
+        <section class="about-stage" id="about" aria-labelledby="about-title">
+            <div class="about-type-layer" aria-hidden="true">
+                <span class="about-name about-name-first">Davi</span>
+                <span class="about-name about-name-last">Placco</span>
+                <span class="about-subtitle">About me.</span>
+            </div>
+            <div class="about-layout observe-me">
+                <figure class="about-portrait">
+                    <img alt="Portrait of Davi Placco" src="assets/profile-davi.png" width="769" height="1024"
+                        loading="lazy" decoding="async" />
+                </figure>
+                <div class="about-copy">
+                    <span class="text-primary text-xs font-bold tracking-[0.3em] uppercase mb-5 block">01 / Profile</span>
+                    <h2 id="about-title" class="mb-8">About Davi<br />Placco.</h2>
+                    <p>As a <strong class="text-white font-semibold">Senior Full-Stack Developer & Creative Lead</strong>,
+                        I architect high-performance digital ecosystems that bridge complex engineering and premium
+                        aesthetics. I work across custom-coded solutions, WordPress, Salesforce, design and SEO to turn
+                        ambitious ideas into scalable, technically refined digital experiences.</p>
                 </div>
             </div>
         </section>
@@ -1535,14 +1960,18 @@
 
                         <!-- Scaled Interactive Iframe Container -->
                         <div class="live-preview-container">
-                            <iframe class="live-preview-frame"
-                                src="https://daviplacco.github.io/aurelius-fintech/analytics"></iframe>
+                            <iframe class="live-preview-frame deferred-preview"
+                                title="Interactive preview of Aurelius Fintech analytics"
+                                data-src="https://daviplacco.github.io/aurelius-fintech/analytics" loading="lazy"
+                                tabindex="-1" aria-hidden="true"
+                                referrerpolicy="strict-origin-when-cross-origin"
+                                sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"></iframe>
                         </div>
 
                         <!-- Premium Visit Button -->
                         <a href="https://daviplacco.github.io/aurelius-fintech/analytics" target="_blank"
-                            class="visit-project-btn" title="Open Live Site">
-                            <span class="material-symbols-outlined text-xl">open_in_new</span>
+                            rel="noopener noreferrer" class="visit-project-btn" aria-label="Open Aurelius Fintech live site">
+                            <span class="material-symbols-outlined text-xl" aria-hidden="true">open_in_new</span>
                         </a>
 
                         <div
@@ -1580,14 +2009,19 @@
 
                         <!-- Scaled Interactive Iframe Container -->
                         <div class="live-preview-container">
-                            <iframe class="live-preview-frame" src="https://daviplacco.github.io/vanguarde-calibre-01/"
+                            <iframe class="live-preview-frame deferred-preview"
+                                title="Interactive preview of Vanguarde Calibre 01"
+                                data-src="https://daviplacco.github.io/vanguarde-calibre-01/" loading="lazy"
+                                tabindex="-1" aria-hidden="true"
+                                referrerpolicy="strict-origin-when-cross-origin"
+                                sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
                                 style="transform: scale(0.65); transform-origin: top left; width: 153%; height: 153%;"></iframe>
                         </div>
 
                         <!-- Premium Visit Button -->
                         <a href="https://daviplacco.github.io/vanguarde-calibre-01/" target="_blank"
-                            class="visit-project-btn" title="Open Live Site">
-                            <span class="material-symbols-outlined text-xl">open_in_new</span>
+                            rel="noopener noreferrer" class="visit-project-btn" aria-label="Open Vanguarde Calibre 01 live site">
+                            <span class="material-symbols-outlined text-xl" aria-hidden="true">open_in_new</span>
                         </a>
 
                         <div
@@ -1616,14 +2050,18 @@
 
                         <!-- Scaled Interactive Iframe Container -->
                         <div class="live-preview-container">
-                            <iframe class="live-preview-frame" src="https://daviplacco.github.io/finance/"
+                            <iframe class="live-preview-frame deferred-preview" title="Interactive preview of Finance Platform"
+                                data-src="https://daviplacco.github.io/finance/" loading="lazy"
+                                tabindex="-1" aria-hidden="true"
+                                referrerpolicy="strict-origin-when-cross-origin"
+                                sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
                                 style="transform: scale(0.65); transform-origin: top left; width: 153%; height: 153%;"></iframe>
                         </div>
 
                         <!-- Premium Visit Button -->
                         <a href="https://daviplacco.github.io/finance/" target="_blank"
-                            class="visit-project-btn" title="Open Live Site">
-                            <span class="material-symbols-outlined text-xl">open_in_new</span>
+                            rel="noopener noreferrer" class="visit-project-btn" aria-label="Open Finance Platform live site">
+                            <span class="material-symbols-outlined text-xl" aria-hidden="true">open_in_new</span>
                         </a>
 
                         <div
@@ -2071,21 +2509,21 @@
                 </h2>
                 <div class="flex flex-col items-center gap-8 sm:gap-12">
                     <a class="glass-button w-full max-w-[280px] sm:max-w-xs px-6 py-4 sm:px-16 sm:py-6 text-sm sm:text-lg font-bold uppercase tracking-[0.2em] text-white flex items-center justify-center gap-3 sm:gap-4 whitespace-nowrap"
-                        href="https://drive.google.com/file/d/1HQAHi8b9jMuJ528oDB2YvMBubvGNMfsX/view?usp=sharing" target="_blank">
+                        href="https://drive.google.com/file/d/1HQAHi8b9jMuJ528oDB2YvMBubvGNMfsX/view?usp=sharing" target="_blank" rel="noopener noreferrer">
                         <span class="material-symbols-outlined">download</span>
                         Download CV
                     </a>
                     <div class="flex flex-wrap justify-center gap-6 sm:gap-12">
                         <a class="social-link text-gray-400 font-bold tracking-widest uppercase text-xs"
-                            href="https://www.linkedin.com/in/davi-placco-9b943217a/" target="_blank">
+                            href="https://www.linkedin.com/in/davi-placco-9b943217a/" target="_blank" rel="noopener noreferrer">
                             <span class="link-text">LinkedIn</span>
                         </a>
                         <a class="social-link text-gray-400 font-bold tracking-widest uppercase text-xs"
-                            href="https://github.com/DaviPlacco" target="_blank">
+                            href="https://github.com/DaviPlacco" target="_blank" rel="noopener noreferrer">
                             <span class="link-text">GitHub</span>
                         </a>
                         <a class="social-link text-gray-400 font-bold tracking-widest uppercase text-xs"
-                            href="https://www.behance.net/davibplacco" target="_blank">
+                            href="https://www.behance.net/davibplacco" target="_blank" rel="noopener noreferrer">
                             <span class="link-text">Behance</span>
                         </a>
                     </div>
@@ -2196,6 +2634,30 @@
         }, observerOptions);
 
         document.querySelectorAll('.observe-me, .reveal').forEach(el => observer.observe(el));
+
+        // Defer heavy cross-origin previews until their cards approach the viewport.
+        const previewFrames = document.querySelectorAll('.deferred-preview[data-src]');
+        const loadPreview = (frame) => {
+            if (!frame.src || frame.src === 'about:blank') {
+                frame.src = frame.dataset.src;
+            }
+        };
+
+        if ('IntersectionObserver' in window) {
+            const previewObserver = new IntersectionObserver((entries, activeObserver) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        loadPreview(entry.target);
+                        activeObserver.unobserve(entry.target);
+                    }
+                });
+            }, { rootMargin: '240px 0px' });
+
+            previewFrames.forEach(frame => previewObserver.observe(frame));
+        } else {
+            previewFrames.forEach(loadPreview);
+        }
+
         // Premium Letter-by-Letter Word Rotation (Hero Section)
         const rotWords = ["Architect.", "Engineer.", "Designer.", "Developer.", "Strategist."];
         const wordContainer = document.querySelector('.text-rotating');
@@ -2316,6 +2778,11 @@
                 // Open Menu
                 mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
                 mobileMenu.classList.add('opacity-100', 'pointer-events-auto');
+                mobileMenu.setAttribute('aria-hidden', 'false');
+                mobileMenu.inert = false;
+                mobileMenuBtn.setAttribute('aria-expanded', 'true');
+                mobileMenuBtn.setAttribute('aria-label', 'Close navigation menu');
+                document.body.style.overflow = 'hidden';
                 mobileNavWrapper.classList.remove('translate-y-8');
                 mobileNavWrapper.classList.add('translate-y-0');
 
@@ -2325,6 +2792,7 @@
                     link.style.opacity = '1';
                     link.style.transform = 'translateY(0)';
                 });
+                mobileNavLinks[0].focus();
 
                 // Animate Hamburger to X
                 spans[0].classList.replace('mb-1.5', 'mb-0');
@@ -2334,6 +2802,11 @@
                 // Close Menu
                 mobileMenu.classList.add('opacity-0', 'pointer-events-none');
                 mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+                mobileMenu.setAttribute('aria-hidden', 'true');
+                mobileMenu.inert = true;
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                mobileMenuBtn.setAttribute('aria-label', 'Open navigation menu');
+                document.body.style.overflow = '';
                 mobileNavWrapper.classList.add('translate-y-8');
                 mobileNavWrapper.classList.remove('translate-y-0');
 
@@ -2352,6 +2825,27 @@
         }
 
         mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && isMobileMenuOpen) {
+                toggleMobileMenu();
+                mobileMenuBtn.focus();
+                return;
+            }
+
+            if (event.key === 'Tab' && isMobileMenuOpen) {
+                const focusable = [mobileMenuBtn, ...mobileNavLinks];
+                const first = focusable[0];
+                const last = focusable[focusable.length - 1];
+                if (event.shiftKey && document.activeElement === first) {
+                    event.preventDefault();
+                    last.focus();
+                } else if (!event.shiftKey && document.activeElement === last) {
+                    event.preventDefault();
+                    first.focus();
+                }
+            }
+        });
 
         // Close mobile menu when clicking a link
         mobileNavLinks.forEach(link => {

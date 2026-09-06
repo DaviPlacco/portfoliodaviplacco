@@ -7,6 +7,18 @@
     <title>Showcase | Davi Placco - Senior Full-Stack Developer & Designer</title>
     <link rel="icon" type="image/png" href="assets/favicon.png" />
     <meta name="description" content="Explore a curated selection of high-performance digital projects, from fintech ecosystems to luxury 3D experiences.">
+    <meta name="author" content="Davi Placco" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#000000" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Project Showcase | Davi Placco" />
+    <meta property="og:description" content="Selected full-stack development and UI/UX design projects by Davi Placco." />
+    <meta property="og:site_name" content="Davi Placco Portfolio" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Project Showcase | Davi Placco" />
+    <meta name="twitter:description" content="Selected full-stack development and UI/UX design projects by Davi Placco." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
@@ -33,7 +45,48 @@
             background-color: #000000;
             color: #e5e7eb;
             font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
+            overflow-x: clip;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        .skip-link {
+            position: fixed;
+            top: 0.75rem;
+            left: 0.75rem;
+            z-index: 1000;
+            padding: 0.75rem 1rem;
+            border-radius: 999px;
+            background: #fff;
+            color: #000;
+            font-weight: 800;
+            transform: translateY(-180%);
+            transition: transform 0.2s ease;
+        }
+
+        .skip-link:focus {
+            transform: translateY(0);
+        }
+
+        :focus-visible {
+            outline: 3px solid #75a7ff;
+            outline-offset: 4px;
+        }
+
+        .text-primary {
+            color: #75a7ff !important;
+        }
+
+        .text-gray-500 {
+            color: #9ca3af !important;
+        }
+
+        .text-\[10px\] {
+            font-size: 0.75rem !important;
         }
 
         .glass-card {
@@ -92,8 +145,33 @@
         }
 
         @media (max-width: 640px) {
-            .bento-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
-            .bento-item { min-height: 300px; }
+            .bento-grid {
+                grid-template-columns: minmax(0, 1fr);
+                grid-auto-rows: auto;
+                width: 100%;
+                min-width: 0;
+            }
+            .bento-item,
+            .bento-item.large,
+            .bento-item.wide,
+            .bento-item.tall {
+                grid-column: 1 / -1;
+                grid-row: auto;
+                width: 100%;
+                min-width: 0;
+                min-height: 360px;
+            }
+
+            .bento-item h3,
+            .bento-item p {
+                max-width: 100%;
+                overflow-wrap: anywhere;
+            }
+
+            .bento-item .absolute.bottom-0 {
+                width: 100%;
+                padding: 1.5rem !important;
+            }
         }
 
         .project-image {
@@ -102,6 +180,15 @@
 
         .bento-item:hover .project-image {
             transform: scale(1.05);
+        }
+
+        .bento-item:focus-within .project-image {
+            transform: scale(1.05);
+        }
+
+        .bento-item:focus-within p,
+        .bento-item:focus-within .visit-btn {
+            opacity: 1 !important;
         }
 
         .case-modal {
@@ -157,24 +244,66 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+
+        @media (max-width: 767px) {
+            header {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+
+            header > div {
+                width: 100%;
+                min-width: 0;
+            }
+
+            main {
+                width: 100%;
+                min-width: 0;
+                padding-left: 1.25rem !important;
+                padding-right: 1.25rem !important;
+            }
+
+            main section,
+            main section p,
+            main section h1 {
+                width: 100%;
+                min-width: 0;
+                max-width: 100%;
+                overflow-wrap: anywhere;
+            }
+
+            .case-modal {
+                padding: 2rem 1.25rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
     </style>
 </head>
 
 <body class="selection:bg-primary selection:text-white">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <!-- Navigation -->
     <header class="fixed top-0 w-full z-50 flex flex-col sm:flex-row justify-between items-center px-8 md:px-16 py-4 sm:py-6 bg-black/50 backdrop-blur-xl border-b border-white/5 gap-3 sm:gap-0">
         <a href="index.html" class="flex items-center gap-2 group whitespace-nowrap">
             <span class="material-symbols-outlined text-primary group-hover:-translate-x-1 transition-transform">arrow_back</span>
             <span class="text-xs font-black uppercase tracking-widest text-white">Back to Home</span>
         </a>
-        <div class="flex gap-4 sm:gap-8 max-w-full overflow-x-auto no-scrollbar py-1">
-            <button onclick="filterProjects('all')" class="filter-btn active text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-gray-500 hover:text-white whitespace-nowrap">All Works</button>
-            <button onclick="filterProjects('dev')" class="filter-btn text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-gray-500 hover:text-white whitespace-nowrap">Development</button>
-            <button onclick="filterProjects('design')" class="filter-btn text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-gray-500 hover:text-white whitespace-nowrap">UI/UX Design</button>
+        <div class="flex gap-4 sm:gap-8 max-w-full overflow-x-auto no-scrollbar py-1" role="group" aria-label="Filter projects">
+            <button type="button" onclick="filterProjects(event, 'all')" aria-pressed="true" class="filter-btn active text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-gray-500 hover:text-white whitespace-nowrap">All Works</button>
+            <button type="button" onclick="filterProjects(event, 'dev')" aria-pressed="false" class="filter-btn text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-gray-500 hover:text-white whitespace-nowrap">Development</button>
+            <button type="button" onclick="filterProjects(event, 'design')" aria-pressed="false" class="filter-btn text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-gray-500 hover:text-white whitespace-nowrap">UI/UX Design</button>
         </div>
     </header>
 
-    <main class="pt-40 sm:pt-32 pb-24 px-8 md:px-16 max-w-[1400px] mx-auto">
+    <main id="main-content" class="pt-40 sm:pt-32 pb-24 px-8 md:px-16 max-w-[1400px] mx-auto">
         <!-- Hero Section -->
         <section class="mb-24 animate-reveal">
             <span class="text-primary tracking-[0.4em] font-bold text-xs uppercase mb-6 block">Project Showcase</span>
@@ -193,7 +322,7 @@
             <!-- Project: Aurelius Fintech (Development / Large) -->
             <div class="bento-item large glass-card p-2 group" data-category="dev">
                 <div class="relative w-full h-full rounded-[20px] overflow-hidden">
-                    <img src="assets/aurelius-mockup.png" alt="Aurelius Fintech" class="project-image w-full h-full object-cover opacity-60 group-hover:opacity-80">
+                    <img src="assets/aurelius-mockup.png" alt="Aurelius Fintech analytics interface" width="1024" height="576" loading="eager" decoding="async" class="project-image w-full h-full object-cover opacity-60 group-hover:opacity-80">
                     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-10">
                         <span class="text-[10px] font-bold tracking-widest text-primary uppercase mb-2 block">Fintech • Next.js</span>
@@ -201,7 +330,7 @@
                         <p class="text-gray-400 text-sm mt-4 max-w-xs opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                             Enterprise-grade wealth management dashboard with real-time data streaming.
                         </p>
-                        <button onclick="openCase('aurelius')" class="mt-6 visit-btn px-6 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest text-white opacity-0 group-hover:opacity-100 transition-all">View Case Study</button>
+                        <button type="button" onclick="openCase('aurelius')" class="mt-6 visit-btn px-6 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest text-white opacity-0 group-hover:opacity-100 transition-all">View Case Study</button>
                     </div>
                 </div>
             </div>
@@ -209,12 +338,12 @@
             <!-- Project: Vanguarde (Development / tall) -->
             <div class="bento-item tall glass-card p-2 group" data-category="dev">
                 <div class="relative w-full h-full rounded-[20px] overflow-hidden">
-                    <img src="https://daviplacco.github.io/vanguarde-calibre-01/watch-hero.png" alt="Vanguarde" class="project-image w-full h-full object-cover opacity-40 group-hover:opacity-60">
+                    <img src="https://daviplacco.github.io/vanguarde-calibre-01/watch-hero.png" alt="Vanguarde Calibre 01 watch experience" loading="lazy" decoding="async" class="project-image w-full h-full object-cover opacity-40 group-hover:opacity-60">
                     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8">
                         <span class="text-[10px] font-bold tracking-widest text-primary uppercase mb-2 block">Interactive • Development</span>
                         <h3 class="text-2xl font-black text-white">Vanguarde</h3>
-                        <button onclick="openCase('vanguarde')" class="mt-4 text-[10px] font-bold uppercase tracking-widest text-white border-b border-primary/40 pb-1">Read Case</button>
+                        <button type="button" onclick="openCase('vanguarde')" class="mt-4 text-[10px] font-bold uppercase tracking-widest text-white border-b border-primary/40 pb-1">Read Case</button>
                     </div>
                 </div>
             </div>
@@ -222,14 +351,14 @@
             <!-- Project: Finance (Dev / Wide) -->
             <div class="bento-item wide glass-card p-2 group" data-category="dev">
                 <div class="relative w-full h-full rounded-[20px] overflow-hidden">
-                    <img src="assets/finance-mockup.png" alt="Finance Platform" class="project-image w-full h-full object-cover opacity-60 group-hover:opacity-80">
+                    <img src="assets/finance-mockup.png" alt="Finance Platform dashboard" width="618" height="498" loading="lazy" decoding="async" class="project-image w-full h-full object-cover opacity-60 group-hover:opacity-80">
                     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8">
                         <span class="text-[10px] font-bold tracking-widest text-primary uppercase mb-2 block">Fintech • SaaS</span>
                         <h3 class="text-3xl font-black text-white">Finance Platform</h3>
                         <div class="flex gap-4 mt-4">
-                            <button onclick="openCase('finance')" class="text-[10px] font-bold uppercase tracking-widest text-white border-b border-primary/40 pb-1">Case Study</button>
-                            <a href="https://daviplacco.github.io/finance/" target="_blank" class="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-colors">Live Demo ↗</a>
+                            <button type="button" onclick="openCase('finance')" class="text-[10px] font-bold uppercase tracking-widest text-white border-b border-primary/40 pb-1">Case Study</button>
+                            <a href="https://daviplacco.github.io/finance/" target="_blank" rel="noopener noreferrer" class="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-colors">Live Demo ↗</a>
                         </div>
                     </div>
                 </div>
@@ -238,14 +367,14 @@
             <!-- Project: To-do App (Design / Wide) -->
             <div class="bento-item wide glass-card p-2 group" data-category="design">
                 <div class="relative w-full h-full rounded-[20px] overflow-hidden">
-                    <img src="assets/todo-mockup.png" alt="To-do App Design" class="project-image w-full h-full object-cover opacity-60 group-hover:opacity-80">
+                    <img src="assets/todo-mockup.png" alt="To-do mobile app interface" width="1024" height="558" loading="lazy" decoding="async" class="project-image w-full h-full object-cover opacity-60 group-hover:opacity-80">
                     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8">
                         <span class="text-[10px] font-bold tracking-widest text-primary uppercase mb-2 block">Branding • Mobile App</span>
                         <h3 class="text-3xl font-black text-white">To-do App</h3>
                         <div class="flex gap-4 mt-4">
-                            <button onclick="openCase('todo')" class="text-[10px] font-bold uppercase tracking-widest text-white border-b border-primary/40 pb-1">Case Study</button>
-                            <a href="https://www.behance.net/gallery/202070649/To-do-UXUI-and-Branding-%28Mobile-website-app%29" target="_blank" class="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-colors">Behance ↗</a>
+                            <button type="button" onclick="openCase('todo')" class="text-[10px] font-bold uppercase tracking-widest text-white border-b border-primary/40 pb-1">Case Study</button>
+                            <a href="https://www.behance.net/gallery/202070649/To-do-UXUI-and-Branding-%28Mobile-website-app%29" target="_blank" rel="noopener noreferrer" class="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-colors">Behance ↗</a>
                         </div>
                     </div>
                 </div>
@@ -286,18 +415,19 @@
                 © 2026 DAVI PLACCO. ALL RIGHTS RESERVED.
             </p>
             <div class="flex flex-wrap justify-center gap-6 sm:gap-8">
-                <a class="text-gray-500 hover:text-white transition-colors text-[10px] font-black uppercase tracking-widest" href="https://www.linkedin.com/in/davi-placco-9b943217a/" target="_blank">LinkedIn</a>
-                <a class="text-gray-500 hover:text-white transition-colors text-[10px] font-black uppercase tracking-widest" href="https://github.com/DaviPlacco" target="_blank">GitHub</a>
-                <a class="text-gray-500 hover:text-white transition-colors text-[10px] font-black uppercase tracking-widest" href="https://www.behance.net/davibplacco" target="_blank">Behance</a>
+                <a class="text-gray-500 hover:text-white transition-colors text-[10px] font-black uppercase tracking-widest" href="https://www.linkedin.com/in/davi-placco-9b943217a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a class="text-gray-500 hover:text-white transition-colors text-[10px] font-black uppercase tracking-widest" href="https://github.com/DaviPlacco" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a class="text-gray-500 hover:text-white transition-colors text-[10px] font-black uppercase tracking-widest" href="https://www.behance.net/davibplacco" target="_blank" rel="noopener noreferrer">Behance</a>
             </div>
         </div>
     </footer>
 
     <!-- Case Study Modal -->
-    <div id="case-modal" class="fixed inset-0 case-modal hidden overflow-y-auto px-8 py-16">
+    <div id="case-modal" class="fixed inset-0 case-modal hidden overflow-y-auto px-8 py-16" role="dialog"
+        aria-modal="true" aria-labelledby="case-title" aria-hidden="true" tabindex="-1">
         <div class="max-w-4xl mx-auto">
-            <button onclick="closeCase()" class="flex items-center gap-2 text-gray-500 hover:text-white mb-12 transition-colors">
-                <span class="material-symbols-outlined">close</span>
+            <button type="button" data-modal-close onclick="closeCase()" class="flex items-center gap-2 text-gray-500 hover:text-white mb-12 transition-colors">
+                <span class="material-symbols-outlined" aria-hidden="true">close</span>
                 <span class="text-xs font-bold uppercase tracking-widest">Close Project</span>
             </button>
             
@@ -343,12 +473,16 @@
             }
         };
 
-        function filterProjects(category) {
+        function filterProjects(event, category) {
             const items = document.querySelectorAll('.bento-item');
             const buttons = document.querySelectorAll('.filter-btn');
             
-            buttons.forEach(btn => btn.classList.remove('active'));
-            if (event) event.target.classList.add('active');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-pressed', 'false');
+            });
+            event.currentTarget.classList.add('active');
+            event.currentTarget.setAttribute('aria-pressed', 'true');
 
             items.forEach(item => {
                 if (category === 'all' || item.getAttribute('data-category') === category) {
@@ -360,13 +494,17 @@
             });
         }
 
+        let modalTrigger = null;
+
         function openCase(id) {
             const data = projectData[id];
             if (!data) return;
 
+            modalTrigger = document.activeElement;
+
             const content = `
                 <span class="text-primary tracking-[0.4em] font-bold text-xs uppercase mb-6 block">${data.category}</span>
-                <h2 class="text-5xl md:text-7xl font-black text-white mb-16">${data.title}</h2>
+                <h2 id="case-title" class="text-5xl md:text-7xl font-black text-white mb-16">${data.title}</h2>
                 
                 <div class="grid md:grid-cols-3 gap-16">
                     <div>
@@ -384,19 +522,50 @@
                 </div>
                 
                 <div class="mt-24 rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-                    <img src="${data.image}" alt="${data.title}" class="w-full h-auto object-cover opacity-90">
+                    <img src="${data.image}" alt="${data.title}" loading="lazy" decoding="async" class="w-full h-auto object-cover opacity-90">
                 </div>
             `;
 
             document.getElementById('modal-content').innerHTML = content;
-            document.getElementById('case-modal').classList.remove('hidden');
+            const modal = document.getElementById('case-modal');
+            modal.classList.remove('hidden');
+            modal.setAttribute('aria-hidden', 'false');
             document.body.style.overflow = 'hidden';
+            modal.querySelector('[data-modal-close]').focus();
         }
 
         function closeCase() {
-            document.getElementById('case-modal').classList.add('hidden');
+            const modal = document.getElementById('case-modal');
+            modal.classList.add('hidden');
+            modal.setAttribute('aria-hidden', 'true');
             document.body.style.overflow = 'auto';
+            if (modalTrigger) modalTrigger.focus();
         }
+
+        document.addEventListener('keydown', (event) => {
+            const modal = document.getElementById('case-modal');
+            if (modal.classList.contains('hidden')) return;
+
+            if (event.key === 'Escape') {
+                closeCase();
+                return;
+            }
+
+            if (event.key === 'Tab') {
+                const focusable = Array.from(modal.querySelectorAll('button, a[href], [tabindex]:not([tabindex="-1"])'))
+                    .filter(element => !element.hasAttribute('disabled'));
+                if (!focusable.length) return;
+                const first = focusable[0];
+                const last = focusable[focusable.length - 1];
+                if (event.shiftKey && document.activeElement === first) {
+                    event.preventDefault();
+                    last.focus();
+                } else if (!event.shiftKey && document.activeElement === last) {
+                    event.preventDefault();
+                    first.focus();
+                }
+            }
+        });
     </script>
 </body>
 
