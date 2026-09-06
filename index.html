@@ -235,6 +235,14 @@
             background: radial-gradient(circle at 50% 50%, rgba(0, 82, 255, 0.15) 0%, transparent 70%);
         }
 
+        #hero {
+            background: linear-gradient(to bottom, #000 0%, #000 54%, #01050c 73%, #06111f 100%);
+        }
+
+        .hero-about-transition {
+            background: linear-gradient(to bottom, transparent 0%, rgba(6, 17, 31, 0.55) 52%, #06111f 100%);
+        }
+
         html {
             scroll-behavior: smooth;
             overflow-x: clip;
@@ -391,15 +399,17 @@
         }
 
         .about-portrait img {
-            width: 100%;
-            height: 100%;
+            position: absolute;
+            bottom: -1rem;
+            left: 50%;
+            width: min(155%, 680px);
+            max-width: none;
+            height: auto;
             display: block;
-            object-fit: cover;
-            object-position: center top;
-            filter: grayscale(1) contrast(1.06);
-            mix-blend-mode: screen;
-            -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 74%, transparent 100%);
-            mask-image: linear-gradient(to bottom, #000 0%, #000 74%, transparent 100%);
+            transform: translateX(-50%);
+            object-fit: contain;
+            object-position: center bottom;
+            filter: grayscale(1) contrast(1.06) drop-shadow(0 30px 45px rgba(0, 0, 0, 0.65));
         }
 
         .about-copy {
@@ -558,6 +568,11 @@
                 min-height: 0;
                 align-self: center;
                 margin: 0;
+            }
+
+            .about-portrait img {
+                bottom: 0;
+                width: min(145%, 620px);
             }
 
             .about-copy {
@@ -1679,7 +1694,7 @@
                 </div>
             </div>
             <!-- Bottom Feathering Fade to pure black -->
-            <div class="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-b from-transparent via-black/60 to-black pointer-events-none z-10"></div>
+            <div class="hero-about-transition absolute bottom-0 left-0 right-0 h-56 pointer-events-none z-10"></div>
         </section>
         <!-- 2. About Me Section -->
         <section class="about-stage" id="about" aria-labelledby="about-title">
@@ -1690,7 +1705,7 @@
             </div>
             <div class="about-layout observe-me">
                 <figure class="about-portrait">
-                    <img alt="Portrait of Davi Placco" src="assets/profile-davi.png" width="769" height="1024"
+                    <img alt="Portrait of Davi Placco" src="assets/profile-davi-cutout.png" width="914" height="981"
                         loading="lazy" decoding="async" />
                 </figure>
                 <div class="about-copy">
