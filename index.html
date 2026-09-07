@@ -305,6 +305,7 @@
             isolation: isolate;
             background:
                 linear-gradient(to bottom, #06111f 0%, rgba(6, 17, 31, 0.96) 3%, transparent 22%),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.36) 46.5%, transparent 46.6%),
                 radial-gradient(circle at 82% 18%, rgba(82, 157, 255, 0.45), transparent 36%),
                 linear-gradient(115deg, #06111f 0%, #07192d 48%, #0b315b 100%);
             contain: paint;
@@ -339,7 +340,7 @@
         }
 
         .about-name {
-            top: 8%;
+            top: 10%;
             font-size: clamp(9rem, 20vw, 23rem);
             background: linear-gradient(90deg, #0052ff 0%, #72b8ff 100%);
             -webkit-background-clip: text;
@@ -348,19 +349,19 @@
         }
 
         .about-name-first {
-            left: 7%;
+            left: 8.3%;
             opacity: 0.78;
             filter: blur(11px);
         }
 
         .about-name-last {
-            left: 48%;
+            left: 46.8%;
             opacity: 0.68;
         }
 
         .about-subtitle {
             top: auto;
-            bottom: 36%;
+            bottom: 37%;
             left: 53%;
             font-size: clamp(7rem, 13.5vw, 17.5rem);
             color: rgba(76, 143, 225, 0.24);
@@ -376,10 +377,10 @@
 
         .about-portrait {
             position: absolute;
-            left: 50%;
+            left: 50.35%;
             bottom: 0;
             width: 22%;
-            height: 95%;
+            height: 96%;
             margin: 0;
             transform: translateX(-50%);
         }
@@ -406,25 +407,30 @@
             object-fit: contain;
             object-position: center bottom;
             filter: grayscale(1) contrast(1.06) drop-shadow(0 30px 45px rgba(0, 0, 0, 0.65));
-            -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 43%, #000 72%, transparent 86%);
-            mask-image: linear-gradient(to right, transparent 0%, #000 43%, #000 72%, transparent 86%);
+            clip-path: inset(0 0 0 44%);
         }
 
         .about-copy {
             position: absolute;
             right: 4%;
-            bottom: 4.5%;
+            top: 66.9%;
+            bottom: auto;
             left: 69.4%;
             max-width: 38rem;
         }
 
         .about-copy p {
             max-width: 62ch;
-            font-size: clamp(1rem, 1.1vw, 1.22rem);
-            line-height: 1.28;
+            font-size: clamp(1rem, 0.96vw, 1.18rem);
+            line-height: 1.3;
             text-align: justify;
             text-align-last: left;
             color: #c6cfdb;
+        }
+
+        .about-copy > span {
+            font-size: clamp(0.75rem, 0.75vw, 0.95rem) !important;
+            margin-bottom: 2rem !important;
         }
 
         @media (max-width: 1100px) {
@@ -465,18 +471,22 @@
                 width: min(155%, 680px);
                 height: auto;
                 transform: translateX(-50%);
-                -webkit-mask-image: none;
-                mask-image: none;
+                clip-path: none;
             }
 
             .about-copy {
                 position: relative;
                 right: auto;
+                top: auto;
                 bottom: auto;
                 left: auto;
                 grid-column: 2;
                 align-self: end;
                 padding-bottom: 4rem;
+            }
+
+            .about-copy > span {
+                margin-bottom: 1.25rem !important;
             }
 
             .about-subtitle {
