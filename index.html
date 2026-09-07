@@ -375,11 +375,27 @@
         .about-word {
             display: flex;
             font-size: clamp(8rem, 17vw, 20rem);
-            background: linear-gradient(90deg, #0052ff 0%, #72b8ff 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
             color: transparent;
         }
+
+        .about-word .about-letter {
+            background: linear-gradient(90deg, var(--letter-start), var(--letter-end));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .about-word-first .about-letter:nth-child(1) { --letter-start: #0052ff; --letter-end: #1d6af0; }
+        .about-word-first .about-letter:nth-child(2) { --letter-start: #1d6af0; --letter-end: #3982ec; }
+        .about-word-first .about-letter:nth-child(3) { --letter-start: #3982ec; --letter-end: #559bf3; }
+        .about-word-first .about-letter:nth-child(4) { --letter-start: #559bf3; --letter-end: #72b8ff; }
+
+        .about-word-last .about-letter:nth-child(1) { --letter-start: #0052ff; --letter-end: #135fe9; }
+        .about-word-last .about-letter:nth-child(2) { --letter-start: #135fe9; --letter-end: #2770e9; }
+        .about-word-last .about-letter:nth-child(3) { --letter-start: #2770e9; --letter-end: #3b81ec; }
+        .about-word-last .about-letter:nth-child(4) { --letter-start: #3b81ec; --letter-end: #4f93ef; }
+        .about-word-last .about-letter:nth-child(5) { --letter-start: #4f93ef; --letter-end: #62a5f5; }
+        .about-word-last .about-letter:nth-child(6) { --letter-start: #62a5f5; --letter-end: #72b8ff; }
 
         .about-word-first {
             opacity: 0.78;
@@ -419,7 +435,7 @@
             aspect-ratio: 1;
             transform: translate(-50%, -100%);
             border-radius: 50%;
-            background: #63aaf5;
+            background: linear-gradient(90deg, var(--letter-start), var(--letter-end));
             pointer-events: none;
         }
 
