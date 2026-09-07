@@ -353,13 +353,15 @@
             opacity: 0.78;
             filter: blur(5px);
             text-shadow: 0 0 20px rgba(34, 120, 255, 0.28);
+            transform: scaleY(0.85);
+            transform-origin: left top;
         }
 
         .about-name-last {
             left: 46.8%;
             opacity: 0.68;
-            transform: scaleX(0.87);
-            transform-origin: left center;
+            transform: scale(0.87, 0.85);
+            transform-origin: left top;
         }
 
         .about-subtitle {
@@ -399,8 +401,7 @@
             transform: translateX(-50%);
             object-fit: contain;
             object-position: center bottom;
-            filter: grayscale(1) contrast(1.06) drop-shadow(0 30px 45px rgba(0, 0, 0, 0.65));
-            clip-path: inset(0 0 0 44%);
+            filter: none;
         }
 
         .about-copy {
