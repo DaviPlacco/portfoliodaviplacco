@@ -330,7 +330,7 @@
         }
 
         .about-word,
-        .about-subtitle {
+        .about-subtitle-text {
             margin: 0;
             white-space: nowrap;
             font-weight: 900;
@@ -346,9 +346,9 @@
             height: clamp(18rem, 24vw, 28rem);
             padding-top: 2%;
             overflow: hidden;
-            pointer-events: auto;
-            -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
-            mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+            pointer-events: none;
+            -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
         }
 
         .about-name-track {
@@ -358,7 +358,8 @@
             animation: aboutNameFlow 36s linear infinite;
         }
 
-        .about-name-marquee:hover .about-name-track {
+        .about-name-track:has(.about-letter:hover),
+        .about-subtitle-track:has(.about-letter:hover) {
             animation-play-state: paused;
         }
 
@@ -395,34 +396,20 @@
         .about-letter {
             display: inline-block;
             cursor: default;
-            transition:
-                transform 420ms cubic-bezier(0.16, 1, 0.3, 1),
-                filter 420ms cubic-bezier(0.16, 1, 0.3, 1),
-                text-shadow 420ms ease,
-                opacity 420ms ease;
+            pointer-events: auto;
+            transition: filter 380ms cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .about-word-first .about-letter {
             filter: blur(8px);
-            text-shadow: 0 0 20px rgba(34, 120, 255, 0.28);
         }
 
         .about-letter:hover {
-            z-index: 1;
-            opacity: 1;
-            transform: translateY(-0.06em) scale(1.08);
-            filter: brightness(1.35) saturate(1.15);
-            text-shadow: 0 0 16px rgba(112, 184, 255, 0.7), 0 0 42px rgba(0, 82, 255, 0.5);
+            filter: blur(5px);
         }
 
         .about-word-first .about-letter:hover {
-            filter: blur(0.8px) brightness(1.45) saturate(1.2);
-        }
-
-        .about-letter:has(+ .about-letter:hover),
-        .about-letter:hover + .about-letter {
-            transform: translateY(-0.025em) scale(1.025);
-            filter: brightness(1.15);
+            filter: blur(1px);
         }
 
         @keyframes aboutNameFlow {
@@ -431,13 +418,42 @@
             }
         }
 
-        .about-subtitle {
+        .about-subtitle-marquee {
             position: absolute;
-            top: auto;
             bottom: 37%;
-            left: 53%;
+            left: 0;
+            width: 100%;
+            height: clamp(9rem, 16vw, 19rem);
+            overflow: hidden;
+            pointer-events: none;
+            -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
+        }
+
+        .about-subtitle-track {
+            display: flex;
+            width: max-content;
+            will-change: transform;
+            animation: aboutNameFlow 46s linear infinite reverse;
+        }
+
+        .about-subtitle-set {
+            display: flex;
+            flex: none;
+            padding-left: 53vw;
+            padding-right: 12vw;
+        }
+
+        .about-subtitle-text {
+            display: flex;
             font-size: clamp(7rem, 13.5vw, 17.5rem);
             color: rgba(76, 143, 225, 0.24);
+        }
+
+        .about-space,
+        .about-punctuation {
+            display: inline-block;
+            pointer-events: none;
         }
 
         .about-layout {
@@ -553,7 +569,7 @@
                 margin-bottom: 1.25rem !important;
             }
 
-            .about-subtitle {
+            .about-subtitle-marquee {
                 display: none;
             }
 
@@ -687,7 +703,7 @@
                 filter: blur(8px);
             }
 
-            .about-subtitle {
+            .about-subtitle-marquee {
                 display: none;
             }
 
@@ -738,7 +754,8 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .about-name-track {
+            .about-name-track,
+            .about-subtitle-track {
                 animation: none;
             }
             html {
@@ -1808,7 +1825,20 @@
                         </div>
                     </div>
                 </div>
-                <span class="about-subtitle">About me.</span>
+                <div class="about-subtitle-marquee">
+                    <div class="about-subtitle-track">
+                        <div class="about-subtitle-set">
+                            <span class="about-subtitle-text">
+                                <span class="about-letter">A</span><span class="about-letter">b</span><span class="about-letter">o</span><span class="about-letter">u</span><span class="about-letter">t</span><span class="about-space">&nbsp;</span><span class="about-letter">m</span><span class="about-letter">e</span><span class="about-punctuation">.</span>
+                            </span>
+                        </div>
+                        <div class="about-subtitle-set">
+                            <span class="about-subtitle-text">
+                                <span class="about-letter">A</span><span class="about-letter">b</span><span class="about-letter">o</span><span class="about-letter">u</span><span class="about-letter">t</span><span class="about-space">&nbsp;</span><span class="about-letter">m</span><span class="about-letter">e</span><span class="about-punctuation">.</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="about-layout observe-me">
                 <figure class="about-portrait">
