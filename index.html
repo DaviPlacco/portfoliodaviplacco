@@ -329,9 +329,8 @@
             user-select: none;
         }
 
-        .about-name,
+        .about-word,
         .about-subtitle {
-            position: absolute;
             margin: 0;
             white-space: nowrap;
             font-weight: 900;
@@ -339,8 +338,41 @@
             line-height: 0.76;
         }
 
-        .about-name {
-            top: 10%;
+        .about-name-marquee {
+            position: absolute;
+            top: 8%;
+            left: 0;
+            width: 100%;
+            height: clamp(18rem, 24vw, 28rem);
+            padding-top: 2%;
+            overflow: hidden;
+            pointer-events: auto;
+            -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+        }
+
+        .about-name-track {
+            display: flex;
+            width: max-content;
+            will-change: transform;
+            animation: aboutNameFlow 36s linear infinite;
+        }
+
+        .about-name-marquee:hover .about-name-track {
+            animation-play-state: paused;
+        }
+
+        .about-name-set {
+            display: flex;
+            flex: none;
+            align-items: flex-start;
+            gap: 6vw;
+            padding-left: 8.3vw;
+            padding-right: 8.3vw;
+        }
+
+        .about-word {
+            display: flex;
             font-size: clamp(8rem, 17vw, 20rem);
             background: linear-gradient(90deg, #0052ff 0%, #72b8ff 100%);
             -webkit-background-clip: text;
@@ -348,23 +380,59 @@
             color: transparent;
         }
 
-        .about-name-first {
-            left: 8.3%;
+        .about-word-first {
             opacity: 0.78;
-            filter: blur(5px);
-            text-shadow: 0 0 20px rgba(34, 120, 255, 0.28);
             transform: scaleY(0.85);
             transform-origin: left top;
         }
 
-        .about-name-last {
-            left: 46.8%;
+        .about-word-last {
             opacity: 0.68;
             transform: scale(0.87, 0.85);
             transform-origin: left top;
         }
 
+        .about-letter {
+            display: inline-block;
+            cursor: default;
+            transition:
+                transform 420ms cubic-bezier(0.16, 1, 0.3, 1),
+                filter 420ms cubic-bezier(0.16, 1, 0.3, 1),
+                text-shadow 420ms ease,
+                opacity 420ms ease;
+        }
+
+        .about-word-first .about-letter {
+            filter: blur(8px);
+            text-shadow: 0 0 20px rgba(34, 120, 255, 0.28);
+        }
+
+        .about-letter:hover {
+            z-index: 1;
+            opacity: 1;
+            transform: translateY(-0.06em) scale(1.08);
+            filter: brightness(1.35) saturate(1.15);
+            text-shadow: 0 0 16px rgba(112, 184, 255, 0.7), 0 0 42px rgba(0, 82, 255, 0.5);
+        }
+
+        .about-word-first .about-letter:hover {
+            filter: blur(0.8px) brightness(1.45) saturate(1.2);
+        }
+
+        .about-letter:has(+ .about-letter:hover),
+        .about-letter:hover + .about-letter {
+            transform: translateY(-0.025em) scale(1.025);
+            filter: brightness(1.15);
+        }
+
+        @keyframes aboutNameFlow {
+            to {
+                transform: translate3d(-50%, 0, 0);
+            }
+        }
+
         .about-subtitle {
+            position: absolute;
             top: auto;
             bottom: 37%;
             left: 53%;
@@ -378,6 +446,7 @@
             min-width: 0;
             margin: 0 auto;
             min-height: inherit;
+            pointer-events: none;
         }
 
         .about-portrait {
@@ -411,6 +480,7 @@
             bottom: auto;
             left: 69.4%;
             max-width: 38rem;
+            pointer-events: auto;
         }
 
         .about-copy p {
@@ -485,14 +555,6 @@
 
             .about-subtitle {
                 display: none;
-            }
-
-            .about-name-first {
-                left: -5%;
-            }
-
-            .about-name-last {
-                left: 38%;
             }
 
             #skills .max-w-7xl {
@@ -606,19 +668,23 @@
                 padding: 0;
             }
 
-            .about-name {
-                top: 4%;
+            .about-name-marquee {
+                top: 2%;
+                height: 18rem;
+                padding-top: 2%;
+            }
+
+            .about-name-set {
+                gap: 2rem;
+                padding-inline: 1.5rem;
+            }
+
+            .about-word {
                 font-size: clamp(6.5rem, 38vw, 12rem);
             }
 
-            .about-name-first {
-                left: -10%;
+            .about-word-first .about-letter {
                 filter: blur(8px);
-            }
-
-            .about-name-last {
-                top: 23%;
-                left: 22%;
             }
 
             .about-subtitle {
@@ -672,6 +738,9 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
+            .about-name-track {
+                animation: none;
+            }
             html {
                 scroll-behavior: auto;
             }
@@ -1719,8 +1788,26 @@
         <!-- 2. About Me Section -->
         <section class="about-stage" id="about" aria-labelledby="about-title">
             <div class="about-type-layer" aria-hidden="true">
-                <span class="about-name about-name-first">Davi</span>
-                <span class="about-name about-name-last">Placco</span>
+                <div class="about-name-marquee">
+                    <div class="about-name-track">
+                        <div class="about-name-set">
+                            <span class="about-word about-word-first">
+                                <span class="about-letter">D</span><span class="about-letter">a</span><span class="about-letter">v</span><span class="about-letter">i</span>
+                            </span>
+                            <span class="about-word about-word-last">
+                                <span class="about-letter">P</span><span class="about-letter">l</span><span class="about-letter">a</span><span class="about-letter">c</span><span class="about-letter">c</span><span class="about-letter">o</span>
+                            </span>
+                        </div>
+                        <div class="about-name-set">
+                            <span class="about-word about-word-first">
+                                <span class="about-letter">D</span><span class="about-letter">a</span><span class="about-letter">v</span><span class="about-letter">i</span>
+                            </span>
+                            <span class="about-word about-word-last">
+                                <span class="about-letter">P</span><span class="about-letter">l</span><span class="about-letter">a</span><span class="about-letter">c</span><span class="about-letter">c</span><span class="about-letter">o</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
                 <span class="about-subtitle">About me.</span>
             </div>
             <div class="about-layout observe-me">
