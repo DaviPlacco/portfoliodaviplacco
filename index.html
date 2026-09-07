@@ -315,19 +315,7 @@
             position: absolute;
             inset: 0;
             z-index: -1;
-            background: linear-gradient(to bottom, transparent 44%, rgba(0, 0, 0, 0.48) 72%, #000 100%);
-            pointer-events: none;
-        }
-
-        .about-stage::before {
-            content: '';
-            position: absolute;
-            inset: 0 auto 0 0;
-            width: 46.6%;
-            z-index: 2;
-            background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.08) 16%, rgba(0, 0, 0, 0.7) 72%, rgba(0, 0, 0, 0.92) 100%);
-            -webkit-backdrop-filter: blur(5px);
-            backdrop-filter: blur(5px);
+            background: linear-gradient(to bottom, transparent 48%, rgba(0, 0, 0, 0.24) 74%, rgba(0, 0, 0, 0.68) 100%);
             pointer-events: none;
         }
 
@@ -371,9 +359,10 @@
         }
 
         .about-subtitle {
-            top: 45%;
+            top: auto;
+            bottom: 36%;
             left: 53%;
-            font-size: clamp(8rem, 17vw, 20rem);
+            font-size: clamp(7rem, 13.5vw, 17.5rem);
             color: rgba(76, 143, 225, 0.24);
         }
 
@@ -392,8 +381,7 @@
             width: 22%;
             height: 95%;
             margin: 0;
-            transform: translateX(-50%) scaleX(0.89);
-            transform-origin: center bottom;
+            transform: translateX(-50%);
         }
 
         .about-portrait::before {
@@ -418,6 +406,8 @@
             object-fit: contain;
             object-position: center bottom;
             filter: grayscale(1) contrast(1.06) drop-shadow(0 30px 45px rgba(0, 0, 0, 0.65));
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 43%, #000 72%, transparent 86%);
+            mask-image: linear-gradient(to right, transparent 0%, #000 43%, #000 72%, transparent 86%);
         }
 
         .about-copy {
@@ -450,10 +440,6 @@
                 min-height: 820px;
             }
 
-            .about-stage::before {
-                display: none;
-            }
-
             .about-layout {
                 position: relative;
                 display: grid;
@@ -479,6 +465,8 @@
                 width: min(155%, 680px);
                 height: auto;
                 transform: translateX(-50%);
+                -webkit-mask-image: none;
+                mask-image: none;
             }
 
             .about-copy {
@@ -489,6 +477,10 @@
                 grid-column: 2;
                 align-self: end;
                 padding-bottom: 4rem;
+            }
+
+            .about-subtitle {
+                display: none;
             }
 
             .about-name-first {
